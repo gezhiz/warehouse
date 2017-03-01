@@ -58,9 +58,39 @@
                 是否生成 example类   -->
 
             <!-- 忽略列，不生成bean 字段 -->
-            <ignoreColumn column="username" />
+            <!--<ignoreColumn column="username" />-->
             <!-- 指定列的java数据类型 -->
-            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+            <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
+        </table>
+        <table tableName="item_category"
+               domainObjectName="ItemCategory" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName="item_color"
+               domainObjectName="ItemColor" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName="item_size"
+               domainObjectName="ItemSize" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName="item"
+               domainObjectName="Item" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName="item_sku"
+               domainObjectName="ItemSku" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName="manager"
+               domainObjectName="Manager" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
         </table>
 
     </context>
