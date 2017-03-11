@@ -1,0 +1,99 @@
+.validation-error-label, .validation-valid-label {
+    float: right;
+    margin-top: 0px;
+}
+
+.yoyo-head-img {
+    width: 100px;
+    height: 100px;
+}
+
+.vetical-middle > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.site-menubar {
+    z-index: 9;
+}
+
+.datepicker th {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    z-index: 9999;
+    min-width: 130px;
+}
+
+.yoyo-num-show {
+    color: red;
+}
+
+.pull-right {
+    float: right !important
+}
+
+.error-tip {
+    color: #f00;
+    margin: 0 0;
+}
+
+label {
+    display: inline;
+}
+
+.linktal-legend {
+    color: #333333;
+}
+
+.linktal-margin-left-20 {
+    margin-left: 20px;
+}
+
+.linktal-margin-left-10 {
+    margin-left: 10px;
+}
+
+.linktal-float-right {
+    float: right;
+}
+
+.linktal-company-name {
+    color: #95989A;
+}
+
+.linktal-skill {
+    color: #95989A;
+}
+
+.yoyo-text {
+    font-size: 14px;
+}
+
+.yoyo-money-text-color {
+    /*color:#F5810D;*/
+    color: #5b9ae4;;
+}
+
+.yoyo-money-font-size-large {
+    font-size: 21px;
+}
+
+.table-no-border> thead > tr > th, .table-no-border > tbody > tr > th, .table-no-border > tfoot > tr > th, .table-no-border > thead > tr > td, .table-no-border > tbody > tr > td, .table-no-border > tfoot > tr > td {
+    border: 0px;
+}
+.new-project-panel {
+    height: 250px;
+    overflow: scroll;
+}
+
+h4 > .label {
+    font-size: 19px;
+}
+
+h5 > .label {
+    font-size: 17px;
+}
+.jGrowl.top-center {
+    z-index: 999999;
+}

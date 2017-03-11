@@ -1,6 +1,10 @@
 package com.mvp01.common.utils;
 
 
+import org.apache.commons.lang.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by gezz on 2016/12/28.
  */
@@ -25,5 +29,15 @@ public class CommonUtil {
         }
         return sb.toString();
     }
+
+    public static String getRequestUri(HttpServletRequest request) {
+        String contextPath = request.getContextPath();
+        String path = request.getRequestURI();
+        if (StringUtils.isBlank(contextPath)) {
+            return path;
+        }
+        return path.replace(contextPath, "");
+    }
+
 
 }
