@@ -23,13 +23,8 @@
 
     </typeAliases>
     <mappers>
-        <!--<mapper resource="mapper/ItemCategoryMapper.xml"></mapper>-->
-        <!--<mapper resource="mapper/ItemColorMapper.xml"></mapper>-->
-        <!--<mapper resource="mapper/ItemMapper.xml"></mapper>-->
-        <!--<mapper resource="mapper/ItemSizeMapper.xml"></mapper>-->
-        <!--<mapper resource="mapper/ItemSkuMapper.xml"></mapper>-->
-        <!--<mapper resource="mapper/ManagerMapper.xml"></mapper>-->
         <mapper resource="mapper/UserMapper.xml"></mapper>
+        <mapper resource="mapper/ItemSizeMapper.xml"></mapper>
     </mappers>
 
 </configuration>

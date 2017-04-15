@@ -30,6 +30,7 @@
 <script src="${request.contextPath}/statics/global/vendor/select2/select2.min.js?${webVersion}"></script>
 <script src="${request.contextPath}/statics/global/vendor/webui-popover/jquery.webui-popover.min.js"></script>
 <script src="${request.contextPath}/statics/global/vendor/toolbar/jquery.toolbar.min.js"></script>
+<script src="${request.contextPath}/statics/global/vendor/toastr/toastr.js"></script>
 <!-- Scripts -->
 <script src="${request.contextPath}/statics/global/js/core.js?${webVersion}"></script>
 <script src="${request.contextPath}/statics/warehouse/assets/js/site.js?${webVersion}"></script>
@@ -51,6 +52,8 @@
 <script src="${request.contextPath}/statics/global/js/components/select2.js?${webVersion}"></script>
 <script src="${request.contextPath}/statics/global/js/components/webui-popover.js"></script>
 <script src="${request.contextPath}/statics/global/js/components/toolbar.js"></script>
+<script src="${request.contextPath}/statics/global/js/components/toastr.js"></script>
+
 
 <!-- yoyo Scripts -->
 <script src="${request.contextPath}/statics/yoyo/js/jquery.cookie.js?${webVersion}"></script>

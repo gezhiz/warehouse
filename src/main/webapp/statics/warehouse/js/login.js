@@ -3,26 +3,16 @@ $(function(){
     $loginForm.submit(function (e) {
         e.preventDefault();
         var submitData = $loginForm.serializeObject();
-        submitData.passwd = hex_md5(submitData.passwd);
+        submitData.password = hex_md5(submitData.password);
         $.postJSON(
             baseUrl + '/sysops/do_login',
             submitData,
             function(retJson) {
                 if(retJson.errno == 0) {
-                    $('body').find('.jGrowl').attr('class', '').attr('id', '').hide();
-                    $.jGrowl('登录成功', {
-                        position: 'top-center',
-                        theme: 'bg-success',
-                        header: '提示'
-                    });
+                    toastr.success('登录成功','');
                     location.href = baseUrl + "/sysops/index";
                 } else {
-                    $('body').find('.jGrowl').attr('class', '').attr('id', '').hide();
-                    $.jGrowl(retJson.errmsg, {
-                        position: 'top-center',
-                        theme: 'bg-danger',
-                        header: '提示'
-                    });
+                    toastr.error(retJson.errmsg, '');
                 }
             }
         )

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ItemSizeMapper" >
+  <resultMap id="BaseResultMap" type="com.worthto.bean.ItemSize" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, user_id
+  </sql>
+  <sql id="if_list">
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
+    <if test="userId != null"> AND user_id = #{userId,jdbcType=VARCHAR} </if>
+    <if test="sortBy != null"> ORDER BY ${sortBy.key} ${sortBy.direction}</if>
+  </sql>
+  <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.ItemSize">
+    SELECT COUNT(id)
+    FROM item_size
+    WHERE 1
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
+    <if test="userId != null"> AND user_id = #{userId,jdbcType=VARCHAR} </if>
+  </select>
+
+  <select id="selectByItemSizeQuery" resultMap="BaseResultMap" parameterType="com.worthto.bean.service.ItemSizeQuery" >
+    select
+    <include refid="Base_Column_List" />
+    from item_size
+    where 1
+    <include refid="if_list"/>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from item_size
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from item_size
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.worthto.bean.ItemSize" >
+    insert into item_size (id, name, user_id
+    )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.worthto.bean.ItemSize" >
+    insert into item_size
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worthto.bean.ItemSize" >
+    update item_size
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worthto.bean.ItemSize" >
+    update item_size
+    set name = #{name,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,5 +1,3 @@
-<#--<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>-->
-<![endif]-->
 <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse"
      role="navigation" style="z-index: 1100;">
     <div class="navbar-header">
@@ -13,11 +11,12 @@
             <i class="icon wb-more-horizontal" aria-hidden="true"></i>
         </button>
         <a class="navbar-brand navbar-brand-center" href="${request.contextPath}/platform/index">
-            <img class="navbar-brand-logo navbar-brand-logo-normal" src="${request.contextPath}/static/warehouse/assets/images/logo.png"
-                 title="Sdeals">
-            <img class="navbar-brand-logo navbar-brand-logo-special" src="${request.contextPath}/static/warehouse/assets/images/logo-blue.png"
-                 title="Sdeals">
-            <span class="navbar-brand-text hidden-xs">${Session.session_login_user.user}</span>
+            <#--仓储管理系统-->
+            <img class="navbar-brand-logo navbar-brand-logo-normal" src="${request.contextPath}/statics/warehouse/assets/images/logo.png"
+                 title="WORTHTO">
+            <img class="navbar-brand-logo navbar-brand-logo-special" src="${request.contextPath}/statics/warehouse/assets/images/logo.png"
+                 title="WORTHTO">
+            <span class="navbar-brand-text hidden-xs">${Session.session_user.username}</span>
         </a>
         <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
                 data-toggle="collapse">
@@ -40,7 +39,7 @@
             <!-- Navbar Toolbar Right -->
             <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
                 <li class="dropdown">
-                    <a href="${request.contextPath}/platform/logout">退出</a>
+                    <a href="${request.contextPath}/sysops/do_logout">退出</a>
                 </li>
             </ul>
             <!-- End Navbar Toolbar Right -->
@@ -67,29 +66,17 @@
         <div>
             <div>
                 <ul class="site-menu">
-                    <li class="site-menu-item has-sub <#if menu=='merchant'>active</#if>">
-                        <a href="${request.contextPath}/platform/merchant/merchantList">商户管理</a>
+                    <li class="site-menu-item has-sub <#if menu=='item'>active</#if>">
+                        <a href="${request.contextPath}/sysops/item/itemList">商品管理</a>
                     </li>
-                    <li class="site-menu-item has-sub <#if menu=='customer'>active</#if>">
-                        <a href="${request.contextPath}/platform/customer/customerList">用户管理</a>
+                    <li class="site-menu-item has-sub <#if menu=='itemCategory'>active</#if>">
+                        <a href="${request.contextPath}/sysops/category/itemCategoryList">商品类别管理</a>
                     </li>
-                    <li class="site-menu-item has-sub <#if menu=='withdraw'>active</#if>">
-                        <a href="${request.contextPath}/platform/meWithdraw/meWithdrawList">提现管理</a>
+                    <li class="site-menu-item has-sub <#if menu=='itemColor'>active</#if>">
+                        <a href="${request.contextPath}/sysops/color/itemColorList">商品颜色管理</a>
                     </li>
-                    <li class="site-menu-item has-sub <#if menu=='order'>active</#if>">
-                        <a href="${request.contextPath}/platform/order/orderList">交易管理</a>
-                    </li>
-                    <li class="site-menu-item has-sub <#if menu=='appVersion'>active</#if>">
-                        <a href="${request.contextPath}/platform/appVersion/appVersionList">app管理</a>
-                    </li>
-                    <li class="site-menu-item has-sub <#if menu=='user'>active</#if>">
-                        <a href="${request.contextPath}/platform/user/userList">系统管理</a>
-                    </li>
-                    <li class="site-menu-item has-sub <#if menu=='personal'>active</#if>">
-                        <a href="${request.contextPath}/platform/personal/changePasswd">个人设置</a>
-                    </li>
-                    <li class="site-menu-item has-sub <#if menu=='biz'>active</#if>">
-                        <a href="${request.contextPath}/platform/biz/banner/bannerList">营销运营</a>
+                    <li class="site-menu-item has-sub <#if menu=='itemSize'>active</#if>">
+                        <a href="${request.contextPath}/sysops/size/itemSizeList">商品尺码管理</a>
                     </li>
                 </ul>
             </div>

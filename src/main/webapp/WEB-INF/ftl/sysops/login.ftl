@@ -39,6 +39,5 @@
 </body>
 
 <#include "../common/scripts.ftl" >
-<script src="${request.contextPath}/statics/warehouse/js/login.js/warehouse/login.js"></script>
-</body>
+<script src="${request.contextPath}/statics/warehouse/js/login.js"></script>
 </html>

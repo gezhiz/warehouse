@@ -36,7 +36,7 @@ public class ExceptionController extends LoggerWrapper {
         if (e.getObj() != null && !StringUtils.isBlank(e.getObj().getErrmsg())) {
             request.getSession().setAttribute(ERROR_HANDLER_RESULT_MSG, e.getObj().getErrmsg());
         }
-        response.sendRedirect(request.getContextPath() + "/error");
+        response.sendRedirect(request.getContextPath() + "/index");
     }
 
     @ExceptionHandler
@@ -47,9 +47,9 @@ public class ExceptionController extends LoggerWrapper {
         }
         if (LoginUtils.getLoginUser(request) != null) {
             //已登录
-            response.sendRedirect(request.getContextPath() + "/platform/index");
+            response.sendRedirect(request.getContextPath() + "/index");
         }else {
-            response.sendRedirect(request.getContextPath() + "/platform/login");
+            response.sendRedirect(request.getContextPath() + "/sysops/login");
         }
     }
 
@@ -59,11 +59,12 @@ public class ExceptionController extends LoggerWrapper {
         if (handleException(e, -3000, e.getMessage(), request, response)) {
             return;
         }
-        response.sendRedirect(request.getContextPath() + "/platform/index");
+        response.sendRedirect(request.getContextPath() + "/index");
     }
 
     private boolean handleException(CustomException e, int errcode, String msg, HttpServletRequest request, HttpServletResponse response) throws IOException {
 //        LOGGER.error("handleException errcode", e);
+        e.printStackTrace();
         if ((e != null && !e.isCheckErrHandle()) || handleJsonAccept(request)) {
             handleJsonResponse(response, AppGsonUtil.toJson(ResultBean.buildResult(errcode, msg, null)));
             return true;
@@ -73,6 +74,7 @@ public class ExceptionController extends LoggerWrapper {
 
     private boolean handleException(CustomException e, ResultBean resultBean, HttpServletRequest request, HttpServletResponse response) throws IOException {
 //        LOGGER.error("handleException", e);
+        e.printStackTrace();
         if ((e != null && !e.isCheckErrHandle()) || handleJsonAccept(request)) {
             handleJsonResponse(response, AppGsonUtil.toJson(resultBean));
             return true;

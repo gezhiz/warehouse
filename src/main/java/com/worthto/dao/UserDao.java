@@ -15,4 +15,8 @@ public interface UserDao extends BaseDao {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User selectByUsernameAndPasswd(User record);
+
+    Integer countByQuery(User query);
 }

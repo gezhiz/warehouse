@@ -2,12 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
 
     <context:annotation-config/>
     <!--<mvc:resources mapping="/statics/**" location="/statics/" />-->
-    <context:component-scan base-package="com.worthto.dao"/>
+    <context:component-scan base-package="com.worthto"/>
 
     <!--mybatis 数据库配置 -->
     <bean id="propertyConfigurer"
@@ -19,22 +22,22 @@
     <!--数据源-->
     <bean id="mysqlTestSource" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="default"
           autowire="default">
-        <property name="driverClassName" value="#{dbConfig['read.driver']}"></property>
-        <property name="url" value="#{dbConfig['read.url']}"></property>
-        <property name="username" value="#{dbConfig['read.user']}"></property>
-        <property name="password" value="#{dbConfig['read.password']}"></property>
-        <property name="maxActive" value="#{dbConfig['read.maxActive']}"></property>
-        <property name="maxIdle" value="#{dbConfig['read.maxIdle']}"></property>
-        <property name="maxWait" value="#{dbConfig['read.maxWait']}"></property>
+        <property name="driverClassName" value="${read.driver}"></property>
+        <property name="url" value="${read.url}"></property>
+        <property name="username" value="${read.user}"></property>
+        <property name="password" value="${read.password}"></property>
+        <property name="maxActive" value="${read.maxActive}"></property>
+        <property name="maxIdle" value="${read.maxIdle}"></property>
+        <property name="maxWait" value="${read.maxWait}"></property>
         <property name="timeBetweenEvictionRunsMillis"
-                  value="#{dbConfig['read.timeBetweenEvictionRunsMillis']}"></property>
-        <property name="testWhileIdle" value="#{dbConfig['read.testWhileIdle']}"></property>
+                  value="${read.timeBetweenEvictionRunsMillis}"></property>
+        <property name="testWhileIdle" value="${read.testWhileIdle}"></property>
         <property name="validationQuery">
             <value>select 1 from DUAL</value>
         </property>
-        <property name="removeAbandoned" value="#{dbConfig['read.removeAbandoned']}"></property>
+        <property name="removeAbandoned" value="${read.removeAbandoned}"></property>
         <property name="removeAbandonedTimeout"
-                  value="#{dbConfig['read.removeAbandonedTimeout']}"></property>
+                  value="${read.removeAbandonedTimeout}"></property>
     </bean>
 
 
@@ -48,5 +51,4 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.worthto.mapper"/>
     </bean>
-
 </beans>

@@ -20,7 +20,7 @@ public class PathController {
 
     @RequestMapping(value = "/", method = {RequestMethod.GET})
     public String toHome() {
-        return "index";
+        return "sysops/item/itemList";
     }
 
     @RequestMapping(value = "/**", method = {RequestMethod.GET})

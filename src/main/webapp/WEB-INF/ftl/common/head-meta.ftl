@@ -4,9 +4,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 <meta name="description" content="bootstrap admin template">
 <meta name="author" content="">
-<title>Sdeals</title>
-<link rel="apple-touch-icon" href="${request.contextPath}/statics/warehouse/assets/images/logo.png">
-<link rel="shortcut icon" href="${request.contextPath}/statics/warehouse/assets/images/logo.png">
+<title>Worthto</title>
+<link rel="apple-touch-icon" href="${request.contextPath}/statics/warehouse/assets/images/logo-blue.png">
+<link rel="shortcut icon" href="${request.contextPath}/statics/warehouse/assets/images/logo-blue.png">
 <!-- Stylesheets -->
 <link rel="stylesheet" href="${request.contextPath}/statics/global/css/bootstrap.min.css?${webVersion}">
 <link rel="stylesheet" href="${request.contextPath}/statics/global/css/bootstrap-extend.min.css?${webVersion}">
@@ -31,9 +31,11 @@
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/datatables-responsive/dataTables.responsive.css?${webVersion}">
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/select2/select2.css?${webVersion}">
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/webui-popover/webui-popover.css">
+<link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/toastr/toastr.css">
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/toolbar/toolbar.css">
 
-
+<link rel="stylesheet" href="${request.contextPath}/statics/global/fonts/web-icons/web-icons.min.css?${webVersion}">
+<link rel="stylesheet" href="${request.contextPath}/statics/global/fonts/brand-icons/brand-icons.min.css?${webVersion}">
 <link rel="stylesheet" href="${request.contextPath}/statics/warehouse/css/common.css">
 
 <!--[if lt IE 9]>
