@@ -27,6 +27,7 @@
         <mapper resource="mapper/ItemSizeMapper.xml"></mapper>
         <mapper resource="mapper/ItemColorMapper.xml"></mapper>
         <mapper resource="mapper/ItemCategoryMapper.xml"></mapper>
+        <mapper resource="mapper/ItemMapper.xml"></mapper>
     </mappers>
 
 </configuration>

@@ -28,13 +28,13 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request) {
         if (LoginUtils.isLogin(request)) {
-            return "sysops/item/itemList";
+            return "redirect:/sysops/item/itemList";
         }
         return "/sysops/login";
     }
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request) {
-        return "/sysops/item/itemList";
+        return "redirect:/sysops/item/itemList";
     }
 
     @RequestMapping(value = "/do_login", method = RequestMethod.POST)

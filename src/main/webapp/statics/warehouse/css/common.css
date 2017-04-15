@@ -100,3 +100,16 @@ h5 > .label {
 /*[aria-live="polite"] {*/
     /*position: relative;*/
 /*}*/
+.select2-dropdown {
+    position: absolute;
+    left: -100000px;
+    z-index: 9999;
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: white;
+    border: 1px solid #e4eaec;
+    border-radius: 3px;
+}

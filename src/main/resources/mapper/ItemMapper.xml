@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ItemMapper" >
+  <resultMap id="BaseResultMap" type="com.worthto.bean.Item" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="item_category_id" property="itemCategoryId" jdbcType="BIGINT" />
+    <result column="item_desc" property="itemDesc" jdbcType="VARCHAR" />
+    <result column="total_count" property="totalCount" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, item_category_id, item_desc, total_count
+  </sql>
+  <sql id="if_list">
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
+    <if test="itemCategoryId != null"> AND item_category_id = #{itemCategoryId,jdbcType=VARCHAR} </if>
+    <if test="sortBy != null"> ORDER BY ${sortBy.key} ${sortBy.direction}</if>
+  </sql>
+  <sql id="if_list_for_object">
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
+    <if test="itemCategoryId != null"> AND item_category_id = #{itemCategoryId,jdbcType=VARCHAR} </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.worthto.bean.Item" >
+    insert into item (id, name, item_category_id,
+    item_desc, total_count)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{itemCategoryId,jdbcType=BIGINT},
+    #{itemDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worthto.bean.Item" >
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="itemCategoryId != null" >
+        item_category_id,
+      </if>
+      <if test="itemDesc != null" >
+        item_desc,
+      </if>
+      <if test="totalCount != null" >
+        total_count
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCategoryId != null" >
+        #{itemCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="itemDesc != null" >
+        #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCount != null" >
+        #{totalCount,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worthto.bean.Item" >
+    update item
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCategoryId != null" >
+        item_category_id = #{itemCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="itemDesc != null" >
+        item_desc = #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCount != null" >
+        total_count = #{totalCount,jdbcType=BIGINT},
+      </if>
+
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worthto.bean.Item" >
+    update item
+    set name = #{name,jdbcType=VARCHAR},
+    item_category_id = #{itemCategoryId,jdbcType=BIGINT},
+    item_desc = #{itemDesc,jdbcType=VARCHAR}
+    total_count = #{totalCount,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.ItemColor">
+    SELECT COUNT(id)
+    FROM item
+    WHERE 1
+    <include refid="if_list_for_object"/>
+  </select>
+
+  <select id="selectByQuery" resultMap="BaseResultMap" parameterType="com.worthto.bean.service.ItemColorQuery" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM item
+    WHERE 1
+    <include refid="if_list"/>
+  </select>
+</mapper>
