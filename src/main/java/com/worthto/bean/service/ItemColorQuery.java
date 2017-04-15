@@ -1,5 +1,6 @@
 package com.worthto.bean.service;
 
+import com.worthto.bean.ItemColor;
 import com.worthto.bean.ItemSize;
 import com.worthto.dao.base.PageQueryBean;
 
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by gezz on 2017/3/18.
  */
-public class ItemSizeQuery extends ItemSize implements PageQueryBean {
+public class ItemColorQuery extends ItemColor implements PageQueryBean {
     private Integer page;
     private Integer pageSize;
     private Integer skip;

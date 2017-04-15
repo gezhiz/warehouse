@@ -9,7 +9,10 @@ import com.worthto.dao.base.PageBean;
  */
 public interface ItemSizeService extends BaseService {
 
-    int addItemSize(ItemSize itemSize);
+    int editItemSize(ItemSize itemSize);
 
     PageBean itemSizePageList(ItemSizeQuery itemSizeQuery);
+
+    ItemSize findById(Long itemSizeId);
+
 }

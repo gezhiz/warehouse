@@ -30,7 +30,7 @@ public class ItemSizeDaoImpl extends BaseDaoImpl implements ItemSizeDao {
 
     @Override
     public ItemSize selectByPrimaryKey(Long id) {
-        return executeForObject("ItemSizeMapper.insertSelective",id,ItemSize.class);
+        return executeForObject("ItemSizeMapper.selectByPrimaryKey",id,ItemSize.class);
     }
 
     @Override
@@ -53,5 +53,9 @@ public class ItemSizeDaoImpl extends BaseDaoImpl implements ItemSizeDao {
         return executeForObjectList("ItemSizeMapper.selectByItemSizeQuery",itemSizeQuery,itemSizeQuery.getSkip(),itemSizeQuery.getPageSize());
     }
 
+    @Override
+    public ItemSize selectOneByQuery(ItemSizeQuery itemSizeQuery) {
+        return executeForObject("ItemSizeMapper.selectByItemSizeQuery", itemSizeQuery,ItemSize.class);
+    }
 
 }

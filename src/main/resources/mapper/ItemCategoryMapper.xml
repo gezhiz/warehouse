@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="ItemSizeMapper" >
-  <resultMap id="BaseResultMap" type="com.worthto.bean.ItemSize" >
+<mapper namespace="ItemCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.worthto.bean.ItemCategory" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
@@ -13,39 +13,22 @@
     <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
     <if test="sortBy != null"> ORDER BY ${sortBy.key} ${sortBy.direction}</if>
   </sql>
-  <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.ItemSize">
-    SELECT COUNT(id)
-    FROM item_size
-    WHERE 1
-    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
-    <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
-  </select>
-
-  <select id="selectByItemSizeQuery" resultMap="BaseResultMap" parameterType="com.worthto.bean.service.ItemSizeQuery" >
-    select
-    <include refid="Base_Column_List" />
-    from item_size
-    where 1
-    <include refid="if_list"/>
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select
+    select 
     <include refid="Base_Column_List" />
-    from item_size
+    from item_category
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from item_size
+    delete from item_category
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.worthto.bean.ItemSize" >
-    insert into item_size (id, name
-    )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}
-    )
+  <insert id="insert" parameterType="com.worthto.bean.ItemCategory" >
+    insert into item_category (id, name)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.worthto.bean.ItemSize" >
-    insert into item_size
+  <insert id="insertSelective" parameterType="com.worthto.bean.ItemCategory" >
+    insert into item_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -59,22 +42,37 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="name != null" >
-        #{name,jdbcType=VARCHAR}
+        #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.worthto.bean.ItemSize" >
-    update item_size
+  <update id="updateByPrimaryKeySelective" parameterType="com.worthto.bean.ItemCategory" >
+    update item_category
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR}
+        name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.worthto.bean.ItemSize" >
-    update item_size
+  <update id="updateByPrimaryKey" parameterType="com.worthto.bean.ItemCategory" >
+    update item_category
     set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.ItemCategory">
+    SELECT COUNT(id)
+    FROM item_category
+    WHERE 1
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
+  </select>
+
+  <select id="selectByQuery" resultMap="BaseResultMap" parameterType="com.worthto.bean.service.ItemCategoryQuery" >
+    select
+    <include refid="Base_Column_List" />
+    from item_category
+    where 1
+    <include refid="if_list"/>
+  </select>
 </mapper>

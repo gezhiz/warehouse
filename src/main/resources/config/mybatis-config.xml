@@ -25,6 +25,8 @@
     <mappers>
         <mapper resource="mapper/UserMapper.xml"></mapper>
         <mapper resource="mapper/ItemSizeMapper.xml"></mapper>
+        <mapper resource="mapper/ItemColorMapper.xml"></mapper>
+        <mapper resource="mapper/ItemCategoryMapper.xml"></mapper>
     </mappers>
 
 </configuration>

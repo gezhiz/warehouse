@@ -25,10 +25,12 @@ public class PageBean<T> {
         page = pageQueryBean.getPage();
         if (null == pageSize) {
             pageSize = 10;
+            pageQueryBean.setPageSize(pageSize);
         }
 
         if (null == page) {
             page = 1;
+            pageQueryBean.setPage(page);
         }
 
         if (pageSize <= 0) {

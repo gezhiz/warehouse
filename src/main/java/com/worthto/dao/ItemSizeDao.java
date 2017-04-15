@@ -24,4 +24,6 @@ public interface ItemSizeDao extends BaseDao {
     Integer countByQuery(ItemSize query);
 
     List<ItemSize> selectByItemSizeQuery(ItemSizeQuery itemSizeQuery);
+
+    ItemSize selectOneByQuery(ItemSizeQuery itemSizeQuery);
 }

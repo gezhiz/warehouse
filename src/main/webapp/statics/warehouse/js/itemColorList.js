@@ -2,19 +2,19 @@
  * Created by gezz on 2017/3/18.
  */
 $(function(){
-    var $editItemSizeModal = $('#editItemSizeModal');
-    var $editItemSizeForm = $('#editItemSizeForm');
-    $editItemSizeForm.submit(function (e) {
+    var $editItemColorModal = $('#editItemColorModal');
+    var $editItemColorForm = $('#editItemColorForm');
+    $editItemColorForm.submit(function (e) {
         e.preventDefault();
-        var submitData = $editItemSizeForm.serializeObject();
+        var submitData = $editItemColorForm.serializeObject();
         $.postJSON(
-            baseUrl + '/sysops/size/edit_item_size',
+            baseUrl + '/sysops/color/edit_item_color',
             submitData,
             function(retJson) {
                 if(retJson.errno == 0) {
-                    yoyoResetForm2($editItemSizeForm);
+                    yoyoResetForm2($editItemColorForm);
                     toastr.success('添加成功', '', {positionClass: 'toast-top-center'});
-                    $editItemSizeModal.modal('hide');
+                    $editItemColorModal.modal('hide');
                     $dataTable.fnFilter();
                 } else {
                     toastr.error(retJson.errmsg, '', {});
@@ -60,12 +60,12 @@ $(function(){
         ],
         serverSide: true,
         ajax: {
-            url: baseUrl + '/sysops/size/item_size_page_list',
+            url: baseUrl + '/sysops/color/item_color_page_list',
             data: function (data) {
                 //请求参数
                 var filterData = $.extend({}, data, {});
                 filterData['page'] = data['start'] / data['length'] + 1;
-                filterData['pageSize'] = data['length'];
+                filterData['pageColor'] = data['length'];
                 return filterData;
             },
             dataFilter: function (dataString) {
@@ -95,16 +95,16 @@ $(function(){
                 var $this = $(this);
                 var itemId = $this.attr('editItemId');
                 $.getJSON(
-                    baseUrl + '/sysops/size/item_size_info',
+                    baseUrl + '/sysops/color/item_color_info',
                     {
-                        itemSizeId: itemId
+                        itemColorId: itemId
                     },
                     function (retJson) {
                         if (retJson.errno == 0) {
-                            var itemSize = retJson.data;
-                            $editItemSizeModal.modal('show');
-                            $editItemSizeModal.find('[name=id]').val(itemSize.id);
-                            $editItemSizeModal.find('[name=name]').val(itemSize.name);
+                            var itemColor = retJson.data;
+                            $editItemColorModal.modal('show');
+                            $editItemColorModal.find('[name=id]').val(itemColor.id);
+                            $editItemColorModal.find('[name=name]').val(itemColor.name);
                         } else {
                             toastr.error(retJson.errmsg, '');
                         }
@@ -112,13 +112,13 @@ $(function(){
                 )
 
             });
-            $('#itemSizeListTable_info').removeAttr('aria-live');
+            $('#itemColorListTable_info').removeAttr('aria-live');
         }
     });
 
-    var $dataTable = $('#itemSizeListTable').dataTable(options);
+    var $dataTable = $('#itemColorListTable').dataTable(options);
 
-    $('#editItemSize').click(function() {
-        yoyoResetForm2($editItemSizeForm);
+    $('#editItemColor').click(function() {
+        yoyoResetForm2($editItemColorForm);
     });
 })

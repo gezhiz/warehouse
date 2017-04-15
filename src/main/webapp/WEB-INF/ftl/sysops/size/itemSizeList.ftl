@@ -8,7 +8,7 @@
 <#include "../../common/header.ftl">
 <!-- Page -->
 <div class="page animsition">
-    <div class="page-content padding-30 container-fluid">
+    <div class="page-content pediting-30 container-fluid">
         <div class="panel">
 
             <div class="panel-body container-fluid">
@@ -23,7 +23,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn btn-primary pull-right" data-target="#additemSizeModal" data-toggle="modal" type="button">新增尺寸</button>
+                        <button class="btn btn-primary pull-right" data-target="#editItemSizeModal" data-toggle="modal" id="editItemSize" type="button">新增尺寸</button>
                         <table class="table table-bordered text-center dataTable table-striped width-full vetical-middle"
                                id="itemSizeListTable">
                             <thead>
@@ -44,10 +44,11 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="additemSizeModal" aria-hidden="false""
+<div class="modal fade" id="editItemSizeModal" aria-hidden="false"
      role="dialog" tabindex="-1">
     <div class="modal-dialog">
-        <form class="modal-content" id="addItemSizeForm" yoyo_validate="true">
+        <form class="modal-content" id="editItemSizeForm" yoyo_validate="true">
+            <input type="hidden" name="id" value=""/>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>

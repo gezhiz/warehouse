@@ -1,10 +1,8 @@
 package com.worthto.bean;
 
-import javax.validation.constraints.NotNull;
-
-public class ItemSize {
+public class ItemCategory {
     private Long id;
-    @NotNull(message = "尺寸名称不能为空")
+
     private String name;
 
     public Long getId() {
@@ -22,5 +20,4 @@ public class ItemSize {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
-
 }

@@ -97,3 +97,6 @@ h5 > .label {
 .jGrowl.top-center {
     z-index: 999999;
 }
+/*[aria-live="polite"] {*/
+    /*position: relative;*/
+/*}*/

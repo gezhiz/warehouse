@@ -1,11 +1,11 @@
 package com.worthto.bean;
 
-import javax.validation.constraints.NotNull;
-
-public class ItemSize {
+public class ItemColor {
     private Long id;
-    @NotNull(message = "尺寸名称不能为空")
+
     private String name;
+
+    private String value;
 
     public Long getId() {
         return id;
@@ -23,4 +23,11 @@ public class ItemSize {
         this.name = name == null ? null : name.trim();
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value == null ? null : value.trim();
+    }
 }

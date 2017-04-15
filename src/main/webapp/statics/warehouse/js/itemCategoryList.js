@@ -2,19 +2,19 @@
  * Created by gezz on 2017/3/18.
  */
 $(function(){
-    var $editItemSizeModal = $('#editItemSizeModal');
-    var $editItemSizeForm = $('#editItemSizeForm');
-    $editItemSizeForm.submit(function (e) {
+    var $editItemCategoryModal = $('#editItemCategoryModal');
+    var $editItemCategoryForm = $('#editItemCategoryForm');
+    $editItemCategoryForm.submit(function (e) {
         e.preventDefault();
-        var submitData = $editItemSizeForm.serializeObject();
+        var submitData = $editItemCategoryForm.serializeObject();
         $.postJSON(
-            baseUrl + '/sysops/size/edit_item_size',
+            baseUrl + '/sysops/category/edit_item_category',
             submitData,
             function(retJson) {
                 if(retJson.errno == 0) {
-                    yoyoResetForm2($editItemSizeForm);
+                    yoyoResetForm2($editItemCategoryForm);
                     toastr.success('添加成功', '', {positionClass: 'toast-top-center'});
-                    $editItemSizeModal.modal('hide');
+                    $editItemCategoryModal.modal('hide');
                     $dataTable.fnFilter();
                 } else {
                     toastr.error(retJson.errmsg, '', {});
@@ -60,12 +60,12 @@ $(function(){
         ],
         serverSide: true,
         ajax: {
-            url: baseUrl + '/sysops/size/item_size_page_list',
+            url: baseUrl + '/sysops/category/item_category_page_list',
             data: function (data) {
                 //请求参数
                 var filterData = $.extend({}, data, {});
                 filterData['page'] = data['start'] / data['length'] + 1;
-                filterData['pageSize'] = data['length'];
+                filterData['pageCategory'] = data['length'];
                 return filterData;
             },
             dataFilter: function (dataString) {
@@ -95,30 +95,29 @@ $(function(){
                 var $this = $(this);
                 var itemId = $this.attr('editItemId');
                 $.getJSON(
-                    baseUrl + '/sysops/size/item_size_info',
+                    baseUrl + '/sysops/category/item_category_info',
                     {
-                        itemSizeId: itemId
+                        itemCategoryId: itemId
                     },
                     function (retJson) {
                         if (retJson.errno == 0) {
-                            var itemSize = retJson.data;
-                            $editItemSizeModal.modal('show');
-                            $editItemSizeModal.find('[name=id]').val(itemSize.id);
-                            $editItemSizeModal.find('[name=name]').val(itemSize.name);
+                            var itemCategory = retJson.data;
+                            $editItemCategoryModal.modal('show');
+                            $editItemCategoryModal.find('[name=id]').val(itemCategory.id);
+                            $editItemCategoryModal.find('[name=name]').val(itemCategory.name);
                         } else {
                             toastr.error(retJson.errmsg, '');
                         }
                     }
                 )
-
             });
-            $('#itemSizeListTable_info').removeAttr('aria-live');
+            $('#itemCategoryListTable_info').removeAttr('aria-live');
         }
     });
 
-    var $dataTable = $('#itemSizeListTable').dataTable(options);
+    var $dataTable = $('#itemCategoryListTable').dataTable(options);
 
-    $('#editItemSize').click(function() {
-        yoyoResetForm2($editItemSizeForm);
+    $('#editItemCategory').click(function() {
+        yoyoResetForm2($editItemCategoryForm);
     });
 })

@@ -8,7 +8,7 @@
 <#include "../../common/header.ftl">
 <!-- Page -->
 <div class="page animsition">
-    <div class="page-content padding-30 container-fluid">
+    <div class="page-content pediting-30 container-fluid">
         <div class="panel">
 
             <div class="panel-body container-fluid">
@@ -22,15 +22,60 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-12"></div>
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary pull-right" data-target="#editItemColorModal" data-toggle="modal" id="editItemColor" type="button">新增颜色</button>
+                        <table class="table table-bordered text-center dataTable table-striped width-full vetical-middle"
+                               id="itemColorListTable">
+                            <thead>
+                            <tr>
+                                <th class="text-center">id</th>
+                                <th class="text-center">颜色</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <br>
             </div>
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="editItemColorModal" aria-hidden="false"
+     role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <form class="modal-content" id="editItemColorForm" yoyo_validate="true">
+            <input type="hidden" name="id" value=""/>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">编辑颜色</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 form-group">
+                        <label >
+                            颜色名称:
+                            <p class="pull-right error-tip" yoyo_notNull="请输入颜色名称"></p>
+                        </label>
+                        <input type="text" class="form-control" name="name" placeholder="例如：卡其色" yoyo_notNull>
+                    </div>
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary btn-outline pull-right" type="submit">提交</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Modal -->
 <!-- End Page -->
 <#include "../../common/scripts.ftl">
 <#include "../../common/footer.ftl">
+<script src="${request.contextPath}/statics/warehouse/js/itemColorList.js"></script>
 </body>
 </html>

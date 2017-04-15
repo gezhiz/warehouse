@@ -2,7 +2,6 @@ package com.worthto.controller;
 
 import com.mvp01.common.bean.ResultBean;
 import com.mvp01.common.exception.ErrcodeException;
-import com.mvp01.common.exception.ParamException;
 import com.mvp01.common.utils.LoginUtils;
 import com.worthto.bean.ItemSize;
 import com.worthto.bean.User;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by gezz on 16/1/7.
@@ -37,12 +35,11 @@ public class ItemSizeController {
         return "/sysops/size/itemSizeList";
     }
 
-    @RequestMapping(value = "/add_item_size", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit_item_size", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean addItemSize(HttpServletRequest request, ItemSize itemSize) {
         User user = LoginUtils.getLoginUser(request);
-        itemSize.setUserId(user.getId());
-        int insertNum = itemSizeService.addItemSize(itemSize);
+        int insertNum = itemSizeService.editItemSize(itemSize);
         if (insertNum <= 0) {
             throw new ErrcodeException("添加失败,请联系系统管理员");
         }
@@ -53,9 +50,18 @@ public class ItemSizeController {
     @ResponseBody
     public ResultBean itemSizePageList(HttpServletRequest request, ItemSizeQuery itemSizeQuery) {
         User user = LoginUtils.getLoginUser(request);
-        itemSizeQuery.setUserId(user.getId());
         PageBean itemSizePageBean = itemSizeService.itemSizePageList(itemSizeQuery);
         return ResultBean.buildOKResultWithObj(itemSizePageBean);
     }
+
+    @RequestMapping(value = "/item_size_info", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultBean itemSizeInfo(HttpServletRequest request, Long itemSizeId) {
+        User user = LoginUtils.getLoginUser(request);
+        ItemSize itemSize = itemSizeService.findById(itemSizeId);
+        return ResultBean.buildOKResultWithObj(itemSize);
+    }
+
+
 
 }
