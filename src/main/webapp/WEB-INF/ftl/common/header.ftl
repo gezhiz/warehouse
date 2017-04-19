@@ -10,7 +10,7 @@
                 data-toggle="collapse">
             <i class="icon wb-more-horizontal" aria-hidden="true"></i>
         </button>
-        <a class="navbar-brand navbar-brand-center" href="${request.contextPath}/platform/index">
+        <a class="navbar-brand navbar-brand-center" href="${request.contextPath}/sysops/item/itemList">
             <#--仓储管理系统-->
             <img class="navbar-brand-logo navbar-brand-logo-normal" src="${request.contextPath}/statics/warehouse/assets/images/logo.png"
                  title="WORTHTO">
