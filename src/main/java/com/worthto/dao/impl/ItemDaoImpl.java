@@ -1,7 +1,9 @@
 package com.worthto.dao.impl;
 
 import com.worthto.bean.Item;
+import com.worthto.bean.service.ItemCountUpdate;
 import com.worthto.bean.service.ItemQuery;
+import com.worthto.bean.service.ItemSkuStockUpdate;
 import com.worthto.dao.ItemDao;
 import com.worthto.dao.base.impl.BaseDaoImpl;
 import org.springframework.stereotype.Repository;
@@ -56,5 +58,10 @@ public class ItemDaoImpl extends BaseDaoImpl implements ItemDao {
     @Override
     public Item selectOneByQuery(ItemQuery itemQuery) {
         return executeForObject("ItemMapper.selectByQuery", itemQuery,Item.class);
+    }
+
+    @Override
+    public void updateStockById(ItemCountUpdate itemCountUpdate) {
+        execute("ItemMapper.updateStockById", itemCountUpdate);
     }
 }

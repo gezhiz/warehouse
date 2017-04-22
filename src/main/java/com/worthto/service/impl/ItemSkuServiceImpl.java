@@ -35,7 +35,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
 
 
     @Override
-    public int editItemSku(ItemSku itemSku, Double price) {
+    public int editItemSku(ItemSku itemSku, Long initStock, Double price) {
         if (price == null) {
             throw new ParamException("price不能为空");
         }
@@ -56,12 +56,14 @@ public class ItemSkuServiceImpl implements ItemSkuService {
                         ,query.getItemSize(), ","
                         ,"规格的sku"));
             }
+            itemSku.setStock(0l);
+            itemSku.setTotalStock(0l);
             ValidateUtils.validate(itemSku);
             int result = itemSkuDao.insert(itemSku);
 
-            if (itemSku.getStock() > 0) {
+            if (initStock > 0) {
                 //生成一条入库单
-                inStockOrderService.inStock(itemSku, itemSku.getStock());
+                inStockOrderService.inStock(itemSku, initStock);
             }
             return result;
         } else {

@@ -7,9 +7,11 @@ import com.mvp01.common.validator.ValidateUtils;
 import com.worthto.bean.InStockOrder;
 import com.worthto.bean.ItemSku;
 import com.worthto.bean.service.InStockOrderQuery;
+import com.worthto.bean.service.ItemCountUpdate;
 import com.worthto.bean.service.ItemSkuStockUpdate;
 import com.worthto.bean.service.SortBy;
 import com.worthto.dao.InStockOrderDao;
+import com.worthto.dao.ItemDao;
 import com.worthto.dao.ItemSkuDao;
 import com.worthto.dao.base.PageBean;
 import com.worthto.service.InStockOrderService;
@@ -30,6 +32,9 @@ public class InStockOrderServiceImpl implements InStockOrderService {
 
     @Autowired
     private ItemSkuDao itemSkuDao;
+
+    @Autowired
+    private ItemDao itemDao;
 
     public int addInStockOrder(InStockOrder inStockOrder) {
         //仅添加
@@ -73,5 +78,7 @@ public class InStockOrderServiceImpl implements InStockOrderService {
         addInStockOrder(inStockOrder);
         //增加库存
         itemSkuDao.updateStockById(new ItemSkuStockUpdate(itemSku.getId(),stock));
+        //增加Item的库存
+        itemDao.updateStockById(new ItemCountUpdate(itemSku.getItemId(),stock));
     }
 }

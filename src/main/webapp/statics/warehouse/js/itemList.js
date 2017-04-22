@@ -58,6 +58,11 @@ $(function(){
             },
             {
                 "data": function (source, type, val) {
+                    return source.historyCount;
+                },
+            },
+            {
+                "data": function (source, type, val) {
                     return '<a editItemId="'+source.id+'" href="javascript:void(0);">编辑</a>&nbsp;&nbsp;' +
                     '<a href="'+baseUrl+'/sysops/sku/itemSkuList/'+source.id+'">管理库存</a>';
                 },

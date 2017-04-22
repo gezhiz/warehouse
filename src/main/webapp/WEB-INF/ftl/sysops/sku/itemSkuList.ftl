@@ -95,7 +95,7 @@
                             初始库存:
                             <p class="pull-right error-tip" yoyo_notNull="请输入初始库存"></p>
                         </label>
-                        <input type="number" class="form-control" name="stock" placeholder="例如：10" value="0" yoyo_notNull>
+                        <input type="number" class="form-control" name="initStock" placeholder="例如：10" value="0" yoyo_notNull>
                     </div>
                     <div class="col-sm-12">
                         <button class="btn btn-primary btn-outline pull-right" type="submit">提交</button>

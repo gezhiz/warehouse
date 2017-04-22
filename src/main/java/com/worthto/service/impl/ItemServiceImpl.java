@@ -38,6 +38,8 @@ public class ItemServiceImpl implements ItemService {
             if (itemDao.countByQuery(query) > 0) {
                 throw new ErrcodeException(CommonUtil.combineString("已经存在名为",query.getName(),"的尺码"));
             }
+            item.setHistoryCount(0l);
+            item.setTotalCount(0l);
             return itemDao.insert(item);
         } else {
             // --更新--

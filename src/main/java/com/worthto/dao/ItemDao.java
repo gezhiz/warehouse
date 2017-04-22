@@ -1,7 +1,9 @@
 package com.worthto.dao;
 
 import com.worthto.bean.Item;
+import com.worthto.bean.service.ItemCountUpdate;
 import com.worthto.bean.service.ItemQuery;
+import com.worthto.bean.service.ItemSkuStockUpdate;
 import com.worthto.dao.base.BaseDao;
 
 import java.util.List;
@@ -24,4 +26,6 @@ public interface ItemDao extends BaseDao {
     List<Item> selectByItemQuery(ItemQuery itemQuery);
 
     Item selectOneByQuery(ItemQuery itemQuery);
+
+    void updateStockById(ItemCountUpdate itemCountUpdate);
 }

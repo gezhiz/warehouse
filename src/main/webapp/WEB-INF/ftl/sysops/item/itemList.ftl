@@ -31,6 +31,7 @@
                                 <th class="text-center">id</th>
                                 <th class="text-center">商品名称</th>
                                 <th class="text-center">库存数</th>
+                                <th class="text-center">历史总库存</th>
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>

@@ -6,10 +6,11 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="item_category_id" property="itemCategoryId" jdbcType="BIGINT" />
     <result column="item_desc" property="itemDesc" jdbcType="VARCHAR" />
-    <result column="total_count" property="totalCount" jdbcType="LONGVARCHAR" />
+    <result column="total_count" property="totalCount" jdbcType="BIGINT" />
+    <result column="history_count" property="historyCount" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, item_category_id, item_desc, total_count
+    id, name, item_category_id, item_desc, total_count, history_count
   </sql>
   <sql id="if_list">
     <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
@@ -34,9 +35,9 @@
   </delete>
   <insert id="insert" parameterType="com.worthto.bean.Item" >
     insert into item (id, name, item_category_id,
-    item_desc, total_count)
+    item_desc, total_count, history_count)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{itemCategoryId,jdbcType=BIGINT},
-    #{itemDesc,jdbcType=VARCHAR})
+    #{itemDesc,jdbcType=VARCHAR}, #{totalCount,jdbcType=BIGINT},#{historyCount,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.worthto.bean.Item" >
     insert into item
@@ -55,6 +56,9 @@
       </if>
       <if test="totalCount != null" >
         total_count
+      </if>
+      <if test="historyCount != null" >
+        history_count
       </if>
 
     </trim>
@@ -91,6 +95,9 @@
       <if test="totalCount != null" >
         total_count = #{totalCount,jdbcType=BIGINT},
       </if>
+      <if test="historyCount != null" >
+        history_count = #{historyCount,jdbcType=BIGINT},
+      </if>
 
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -101,6 +108,7 @@
     item_category_id = #{itemCategoryId,jdbcType=BIGINT},
     item_desc = #{itemDesc,jdbcType=VARCHAR}
     total_count = #{totalCount,jdbcType=BIGINT}
+    history_count = #{historyCount,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.ItemColor">
@@ -117,4 +125,11 @@
     WHERE 1
     <include refid="if_list"/>
   </select>
+  <update id="updateStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >
+    update item
+    set
+    total_count = total_count + #{addCount,jdbcType=BIGINT},
+    history_count = history_count + #{addCount,jdbcType=BIGINT}
+    where id = #{itemId,jdbcType=BIGINT}
+  </update>
 </mapper>

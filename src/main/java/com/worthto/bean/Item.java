@@ -9,6 +9,8 @@ public class Item {
 
     private Long totalCount;//当前库存
 
+    private Long historyCount;//历史总库存
+
     private String itemDesc;
 
     public Long getId() {
@@ -49,5 +51,13 @@ public class Item {
 
     public void setTotalCount(Long totalCount) {
         this.totalCount = totalCount;
+    }
+
+    public Long getHistoryCount() {
+        return historyCount;
+    }
+
+    public void setHistoryCount(Long historyCount) {
+        this.historyCount = historyCount;
     }
 }

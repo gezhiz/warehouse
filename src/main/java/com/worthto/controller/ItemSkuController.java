@@ -67,10 +67,10 @@ public class ItemSkuController {
 
     @RequestMapping(value = "/edit_item_sku", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean addItemSku(HttpServletRequest request, ItemSku itemSku, Double doublePrice) {
+    public ResultBean addItemSku(HttpServletRequest request, ItemSku itemSku, Long initStock, Double doublePrice) {
         User loginUser = LoginUtils.getLoginUser(request);
         itemSku.setUserId(loginUser.getId());
-        int insertNum = itemSkuService.editItemSku(itemSku,doublePrice);
+        int insertNum = itemSkuService.editItemSku(itemSku, initStock, doublePrice);
         if (insertNum <= 0) {
             throw new ErrcodeException("添加失败,请联系系统管理员");
         }
