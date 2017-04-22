@@ -48,7 +48,7 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
                 //其他尺码有同名
                 throw new ErrcodeException(CommonUtil.combineString("已经存在名为",query.getName(),"的尺码"));
             }
-            return itemCategoryDao.updateByPrimaryKey(itemCategory);
+            return itemCategoryDao.updateByPrimaryKeySelective(itemCategory);
         }
     }
 

@@ -23,10 +23,14 @@ public class ItemSku {
     @NotNull(message = "初始库存不能为空")
     private Long stock;
 
+    @NotNull(message = "userId不能为空")
     private Long userId;
 
     @NotNull(message = "创建时间不能为空")
     private Date createTime;
+
+    @NotNull(message = "库存总量不能为空")
+    private Long totalStock;
 
     public Long getId() {
         return id;
@@ -90,5 +94,13 @@ public class ItemSku {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getTotalStock() {
+        return totalStock;
+    }
+
+    public void setTotalStock(Long totalStock) {
+        this.totalStock = totalStock;
     }
 }

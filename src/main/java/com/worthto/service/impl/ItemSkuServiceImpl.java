@@ -10,10 +10,12 @@ import com.worthto.bean.service.SortBy;
 import com.worthto.dao.ItemSkuDao;
 import com.worthto.dao.base.PageBean;
 import com.worthto.service.ItemSkuService;
+import com.worthto.utils.OrderUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,21 +29,28 @@ public class ItemSkuServiceImpl implements ItemSkuService {
 
 
     @Override
-    public int editItemSku(ItemSku itemSku) {
-        ValidateUtils.validate(itemSku);
+    public int editItemSku(ItemSku itemSku, Double price) {
+        if (price == null) {
+            throw new ParamException("price不能为空");
+        }
+        itemSku.setPrice(OrderUtils.encodePrice(price));
         if (itemSku.getId() == null) {
             // --新增--
+            itemSku.setCreateTime(new Date());
+            itemSku.setTotalStock(itemSku.getStock());
             //查重
             ItemSkuQuery query = new ItemSkuQuery();
             query.setItemId(itemSku.getItemId());
             query.setColor(itemSku.getColor());
             query.setItemSize(itemSku.getItemSize());
+            query.setUserId(itemSku.getUserId());
             if (itemSkuDao.countByQuery(query) > 0) {
                 throw new ErrcodeException(CommonUtil.combineString("已经存在名为"
                         ,query.getColor(),","
                         ,query.getItemSize(), ","
                         ,"规格的sku"));
             }
+            ValidateUtils.validate(itemSku);
             return itemSkuDao.insert(itemSku);
         } else {
             // --更新--
@@ -57,7 +66,11 @@ public class ItemSkuServiceImpl implements ItemSkuService {
                         ,query.getItemSize(), ","
                         ,"规格的sku"));
             }
-            return itemSkuDao.updateByPrimaryKey(itemSku);
+            ItemSku updateItemSku = new ItemSku();
+            //只允许更新一下数据
+            updateItemSku.setItemSize(itemSku.getItemSize());
+            updateItemSku.setColor(itemSku.getColor());
+            return itemSkuDao.updateByPrimaryKeySelective(updateItemSku);
         }
     }
 

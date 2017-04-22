@@ -5,14 +5,12 @@ import com.mvp01.common.exception.ErrcodeException;
 import com.mvp01.common.exception.ParamException;
 import com.mvp01.common.utils.LoginUtils;
 import com.sun.tracing.dtrace.Attributes;
-import com.worthto.bean.Item;
-import com.worthto.bean.ItemSku;
-import com.worthto.bean.User;
+import com.worthto.bean.*;
+import com.worthto.bean.service.ItemColorQuery;
+import com.worthto.bean.service.ItemSizeQuery;
 import com.worthto.bean.service.ItemSkuQuery;
 import com.worthto.dao.base.PageBean;
-import com.worthto.service.ItemService;
-import com.worthto.service.ItemSkuService;
-import com.worthto.service.UserService;
+import com.worthto.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,18 +38,39 @@ public class ItemSkuController {
     @Autowired
     private ItemSkuService itemSkuService;
 
+    @Autowired
+    private ItemSizeService itemSizeService;
+
+    @Autowired
+    private ItemColorService itemColorService;
+
     @RequestMapping(value = "/itemSkuList/{itemId}", method = RequestMethod.GET)
     public String skuList(HttpServletRequest request, Model model, @PathVariable Long itemId) {
+        User loginUser = LoginUtils.getLoginUser(request);
         Item item = itemService.findById(itemId);
         model.addAttribute("item",item);
+        //尺寸
+        ItemSizeQuery itemSizeQuery = new ItemSizeQuery();
+        itemSizeQuery.setPage(1);
+        itemSizeQuery.setPageSize(Integer.MAX_VALUE);
+        PageBean<ItemSize> itemSizePageBean = itemSizeService.itemSizePageList(itemSizeQuery);
+        model.addAttribute("itemSizePageBean",itemSizePageBean);
+        //颜色
+        ItemColorQuery itemColorQuery = new ItemColorQuery();
+        itemColorQuery.setPage(1);
+        itemColorQuery.setPageSize(Integer.MAX_VALUE);
+        PageBean<ItemColor> itemColorPageBean = itemColorService.itemColorPageList(itemColorQuery);
+        model.addAttribute("itemColorPageBean",itemColorPageBean);
+
         return "/sysops/sku/itemSkuList";
     }
 
     @RequestMapping(value = "/edit_item_sku", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean addItemSku(HttpServletRequest request, ItemSku itemSku) {
-        User user = LoginUtils.getLoginUser(request);
-        int insertNum = itemSkuService.editItemSku(itemSku);
+    public ResultBean addItemSku(HttpServletRequest request, ItemSku itemSku, Double doublePrice) {
+        User loginUser = LoginUtils.getLoginUser(request);
+        itemSku.setUserId(loginUser.getId());
+        int insertNum = itemSkuService.editItemSku(itemSku,doublePrice);
         if (insertNum <= 0) {
             throw new ErrcodeException("添加失败,请联系系统管理员");
         }

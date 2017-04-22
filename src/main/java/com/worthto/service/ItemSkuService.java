@@ -9,7 +9,7 @@ import com.worthto.dao.base.PageBean;
  */
 public interface ItemSkuService extends BaseService {
 
-    int editItemSku(ItemSku itemSku);
+    int editItemSku(ItemSku itemSku, Double price);
 
     PageBean itemSkuPageList(ItemSkuQuery itemSkuQuery);
 

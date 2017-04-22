@@ -30,8 +30,10 @@
                             <tr>
                                 <th class="text-center">id</th>
                                 <th class="text-center">商品颜色</th>
-                                <th class="text-center">商品尺寸</th>
+                                <th class="text-center">商品尺码</th>
                                 <th class="text-center">库存数</th>
+                                <th class="text-center">历史总库存</th>
+                                <th class="text-center">价格(￥)</th>
                                 <th class="text-center">操作</th>
                             </tr>
                             </thead>
@@ -47,42 +49,53 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="editItemSkuModal" aria-hidden="false"
-     role="dialog" tabindex="-1">
+     role="dialog">
     <div class="modal-dialog">
         <form class="modal-content" id="editItemSkuForm" yoyo_validate="true">
-            <input type="hidden" name="id" value=""/>
+            <input type="hidden" name="itemId" value="${item.id}"/>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title">编辑商品</h4>
+                <h4 class="modal-title">添加【${item.name}】的单品</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12 form-group">
                         <label >
-                            商品名称:
-                            <p class="pull-right error-tip" yoyo_notNull="请输入名称"></p>
+                            商品颜色:
+                            <p class="pull-right error-tip" yoyo_notNull="请选择商品颜色"></p>
                         </label>
-                        <input type="text" class="form-control" name="name" placeholder="例如：夏季牛仔裤" yoyo_notNull>
-                    </div>
-                    <div class="col-lg-12 form-group">
-                        <label >
-                            商品类别:
-                            <p class="pull-right error-tip" yoyo_notNull="请选择商品类别"></p>
-                        </label>
-                        <select type="text" class="form-control select"  data-plugin="select2" name="itemCategoryId" placeholder="例如：夏季牛仔裤" yoyo_notNull>
-                        <#list itemCategoryPageBean.list as itemCategory>
-                            <option value="${itemCategory.id}">${itemCategory.name}</option>
+                        <select type="text" class="form-control select"  data-plugin="select2" name="color" placeholder="例如：夏季牛仔裤" yoyo_notNull>
+                        <#list itemColorPageBean.list as itemColor>
+                            <option value="${itemColor.name}">${itemColor.name}</option>
                         </#list>
                         </select>
                     </div>
                     <div class="col-lg-12 form-group">
                         <label >
-                            商品描述:
-                            <p class="pull-right error-tip" yoyo_notNull="请输入商品描述"></p>
+                            商品尺寸:
+                            <p class="pull-right error-tip" yoyo_notNull="请选择尺寸"></p>
                         </label>
-                        <textarea type="text" rows="5" class="form-control" name="itemSkuDesc" placeholder="您可以在此记录商品的一些特征描述、备注等信息" yoyo_notNull></textarea>
+                        <select type="text" class="form-control select"  data-plugin="select2" name="itemSize" placeholder="例如：夏季牛仔裤" yoyo_notNull>
+                        <#list itemSizePageBean.list as itemSize>
+                            <option value="${itemSize.name}">${itemSize.name}</option>
+                        </#list>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 form-group">
+                        <label >
+                            商品价格:
+                            <p class="pull-right error-tip" yoyo_notNull="请输入价格"></p>
+                        </label>
+                        <input type="number" class="form-control" name="doublePrice" placeholder="例如：10.20" value="0" yoyo_notNull>
+                    </div>
+                    <div class="col-lg-12 form-group">
+                        <label >
+                            初始库存:
+                            <p class="pull-right error-tip" yoyo_notNull="请输入初始库存"></p>
+                        </label>
+                        <input type="number" class="form-control" name="stock" placeholder="例如：10" value="0" yoyo_notNull>
                     </div>
                     <div class="col-sm-12">
                         <button class="btn btn-primary btn-outline pull-right" type="submit">提交</button>

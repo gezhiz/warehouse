@@ -66,8 +66,9 @@
 
 <script>
     var baseUrl = '${request.contextPath}';
+    'use strict';
     var Site = window.Site;
-    $(function() {
+    $(document).ready(function($) {
         Site.run();
-    })
+    });
 </script>

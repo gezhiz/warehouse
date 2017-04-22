@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/datatables-fixedheader/dataTables.fixedHeader.css?${webVersion}">
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/datatables-responsive/dataTables.responsive.css?${webVersion}">
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/select2/select2.css?${webVersion}">
-<link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/bootstrap-select/bootstrap-select.css">
+<#--<link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/bootstrap-select/bootstrap-select.css">-->
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/webui-popover/webui-popover.css">
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/toastr/toastr.css">
 <link rel="stylesheet" href="${request.contextPath}/statics/global/vendor/toolbar/toolbar.css">

@@ -2,19 +2,19 @@
  * Created by gezz on 2017/3/18.
  */
 $(function(){
-    var $editItemModal = $('#editItemModal');
-    var $editItemForm = $('#editItemForm');
-    $editItemForm.submit(function (e) {
+    var $editItemSkuModal = $('#editItemSkuModal');
+    var $editItemSkuForm = $('#editItemSkuForm');
+    $editItemSkuForm.submit(function (e) {
         e.preventDefault();
-        var submitData = $editItemForm.serializeObject();
+        var submitData = $editItemSkuForm.serializeObject();
         $.postJSON(
-            baseUrl + '/sysops/item/edit_item',
+            baseUrl + '/sysops/sku/edit_item_sku',
             submitData,
             function(retJson) {
                 if(retJson.errno == 0) {
-                    yoyoResetForm2($editItemForm);
-                    toastr.success('编辑成功', '', {positionClass: 'toast-top-center'});
-                    $editItemModal.modal('hide');
+                    // yoyoResetForm2($editItemSkuForm);
+                    toastr.success('提交成功', '', {positionClass: 'toast-top-center'});
+                    $editItemSkuModal.modal('hide');
                     $dataTable.fnFilter();
                 } else {
                     toastr.error(retJson.errmsg, '', {});
@@ -48,22 +48,33 @@ $(function(){
             },
             {
                 "data": function (source, type, val) {
-                    return source.id;
+                    return source.color;
                 },
             },
             {
                 "data": function (source, type, val) {
-                    return source.id;
+                    return source.itemSize;
                 },
             },
             {
                 "data": function (source, type, val) {
-                    return source.id;
+                    return source.stock;
                 },
             },
             {
                 "data": function (source, type, val) {
-                    return source.id;
+                    return source.totalStock;
+                },
+            },
+            {
+                "data": function (source, type, val) {
+                    return source.price / 100;
+                },
+            },
+            {
+                "data": function (source, type, val) {
+                    return'<a  href="javascript:void(0);">出库</a>&nbsp;'+
+                    '<a  href="javascript:void(0);">入库</a>';
                 },
             },
 
@@ -112,11 +123,11 @@ $(function(){
                     function (retJson) {
                         if (retJson.errno == 0) {
                             var item = retJson.data;
-                            $editItemModal.modal('show');
-                            $editItemModal.find('[name=id]').val(item.id);
-                            $editItemModal.find('[name=name]').val(item.name);
-                            $editItemModal.find('[name=itemDesc]').val(item.itemDesc);
-                            $editItemModal.find('[name=itemCategoryId]').val(item.itemCategoryId).change();
+                            $editItemSkuModal.modal('show');
+                            $editItemSkuModal.find('[name=id]').val(item.id);
+                            $editItemSkuModal.find('[name=name]').val(item.name);
+                            $editItemSkuModal.find('[name=itemDesc]').val(item.itemDesc);
+                            $editItemSkuModal.find('[name=itemCategoryId]').val(item.itemCategoryId).change();
                         } else {
                             toastr.error(retJson.errmsg, '');
                         }
@@ -131,6 +142,6 @@ $(function(){
     var $dataTable = $('#itemSkuListTable').dataTable(options);
 
     $('#editItem').click(function() {
-        yoyoResetForm2($editItemForm);
+        yoyoResetForm2($editItemSkuForm);
     });
 })

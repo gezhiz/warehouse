@@ -8,15 +8,38 @@
     <result column="item_size" property="itemSize" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="INTEGER" />
     <result column="stock" property="stock" jdbcType="BIGINT" />
+    <result column="total_stock" property="totalStock" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="DATE" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, item_id, color, item_size, price, stock, user_id, create_time
+    id, item_id, color, item_size, price, stock, user_id, create_time, total_stock
   </sql>
   <sql id="if_list">
     <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="itemId != null" >
+      AND item_id = #{itemId,jdbcType=BIGINT}
+    </if>
+    <if test="color != null" >
+      AND color = #{color,jdbcType=VARCHAR}
+    </if>
+    <if test="itemSize != null" >
+      AND item_size = #{itemSize,jdbcType=VARCHAR}
+    </if>
+    <if test="price != null" >
+      AND price = #{price,jdbcType=INTEGER}
+    </if>
+    <if test="stock != null" >
+      AND stock = #{stock,jdbcType=BIGINT}
+    </if>
+    <if test="totalStock != null" >
+      AND total_stock = #{totalStock,jdbcType=BIGINT}
+    </if>
+    <if test="userId != null" >
+      AND user_id = #{userId,jdbcType=BIGINT}
+    </if>
     <if test="sortBy != null"> ORDER BY ${sortBy.key} ${sortBy.direction}</if>
+
   </sql>
   <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.ItemSku">
     SELECT COUNT(id)
@@ -44,11 +67,11 @@
   </delete>
   <insert id="insert" parameterType="com.worthto.bean.ItemSku" >
     insert into item_sku (id, item_id, color,
-    item_size, price, stock,
+    item_size, price, stock, total_stock,
     user_id)
     values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{color,jdbcType=VARCHAR},
     #{itemSize,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{stock,jdbcType=BIGINT},
-    #{userId,jdbcType=BIGINT})
+    #{totalStock,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.worthto.bean.ItemSku" >
     insert into item_sku
@@ -70,6 +93,9 @@
       </if>
       <if test="stock != null" >
         stock,
+      </if>
+      <if test="totalStock != null" >
+        total_stock,
       </if>
       <if test="userId != null" >
         user_id,
@@ -94,6 +120,9 @@
       <if test="stock != null" >
         #{stock,jdbcType=BIGINT},
       </if>
+      <if test="total_stock != null" >
+        #{totalStock,jdbcType=BIGINT},
+      </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
       </if>
@@ -117,6 +146,9 @@
       <if test="stock != null" >
         stock = #{stock,jdbcType=BIGINT},
       </if>
+      <if test="totalStock != null" >
+        total_stock = #{totalStock,jdbcType=BIGINT},
+      </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=BIGINT},
       </if>
@@ -130,6 +162,7 @@
       item_size = #{itemSize,jdbcType=VARCHAR},
       price = #{price,jdbcType=INTEGER},
       stock = #{stock,jdbcType=BIGINT},
+      total_stock = #{totalStock,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>

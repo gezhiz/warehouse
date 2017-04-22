@@ -48,7 +48,7 @@ public class ItemSizeServiceImpl implements ItemSizeService {
                 //其他尺码有同名
                 throw new ErrcodeException(CommonUtil.combineString("已经存在名为",query.getName(),"的尺码"));
             }
-            return itemSizeDao.updateByPrimaryKey(itemSize);
+            return itemSizeDao.updateByPrimaryKeySelective(itemSize);
         }
     }
 
