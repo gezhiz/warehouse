@@ -48,25 +48,29 @@ $(function(){
             },
             {
                 "data": function (source, type, val) {
-                    return source.name;
+                    return source.id;
                 },
             },
             {
                 "data": function (source, type, val) {
-                    return source.totalCount;
+                    return source.id;
                 },
             },
             {
                 "data": function (source, type, val) {
-                    return '<a editItemId="'+source.id+'" href="javascript:void(0);">编辑</a>&nbsp;&nbsp;' +
-                    '<a href="'+baseUrl+'/sysops/sku/itemSkuList/'+source.id+'">管理库存</a>';
+                    return source.id;
+                },
+            },
+            {
+                "data": function (source, type, val) {
+                    return source.id;
                 },
             },
 
         ],
         serverSide: true,
         ajax: {
-            url: baseUrl + '/sysops/item/item_page_list',
+            url: baseUrl + '/sysops/sku/item_sku_page_list',
             data: function (data) {
                 //请求参数
                 var filterData = $.extend({}, data, {});
@@ -124,7 +128,7 @@ $(function(){
         }
     });
 
-    var $dataTable = $('#itemListTable').dataTable(options);
+    var $dataTable = $('#itemSkuListTable').dataTable(options);
 
     $('#editItem').click(function() {
         yoyoResetForm2($editItemForm);

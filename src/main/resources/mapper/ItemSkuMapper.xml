@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ItemSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.worthto.bean.ItemSku" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="item_id" property="itemId" jdbcType="BIGINT" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="item_size" property="itemSize" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="stock" property="stock" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, item_id, color, item_size, price, stock, user_id, create_time
+  </sql>
+  <sql id="if_list">
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="sortBy != null"> ORDER BY ${sortBy.key} ${sortBy.direction}</if>
+  </sql>
+  <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.ItemSku">
+    SELECT COUNT(id)
+    FROM item_sku
+    WHERE 1
+    <include refid="if_list"/>
+  </select>
+
+  <select id="selectByItemSkuQuery" resultMap="BaseResultMap" parameterType="com.worthto.bean.service.ItemSkuQuery" >
+    select
+    <include refid="Base_Column_List" />
+    from item_sku
+    where 1
+    <include refid="if_list"/>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from item_sku
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from item_sku
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.worthto.bean.ItemSku" >
+    insert into item_sku (id, item_id, color,
+    item_size, price, stock,
+    user_id)
+    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{color,jdbcType=VARCHAR},
+    #{itemSize,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{stock,jdbcType=BIGINT},
+    #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worthto.bean.ItemSku" >
+    insert into item_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+      <if test="itemSize != null" >
+        item_size,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSize != null" >
+        #{itemSize,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worthto.bean.ItemSku" >
+    update item_sku
+    <set >
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSize != null" >
+        item_size = #{itemSize,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worthto.bean.ItemSku" >
+    update item_sku
+    set item_id = #{itemId,jdbcType=BIGINT},
+      color = #{color,jdbcType=VARCHAR},
+      item_size = #{itemSize,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
