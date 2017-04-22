@@ -4,6 +4,8 @@
 $(function(){
     var $editItemSkuModal = $('#editItemSkuModal');
     var $editItemSkuForm = $('#editItemSkuForm');
+    var $inStockModal = $('#inStockModal');
+    var $inStockForm = $('#inStockForm');
     $editItemSkuForm.submit(function (e) {
         e.preventDefault();
         var submitData = $editItemSkuForm.serializeObject();
@@ -22,6 +24,24 @@ $(function(){
             }
         )
     });
+    $inStockForm.submit(function (e) {
+            e.preventDefault();
+            var submitData = $inStockForm.serializeObject();
+            $.postJSON(
+                baseUrl + '/sysops/inStock/in_stock',
+                submitData,
+                function(retJson) {
+                    if(retJson.errno == 0) {
+                        yoyoResetForm2($inStockForm);
+                        toastr.success('入库成功', '', {positionClass: 'toast-top-center'});
+                        $inStockModal.modal('hide');
+                        $dataTable.fnFilter();
+                    } else {
+                        toastr.error(retJson.errmsg, '', {});
+                    }
+                }
+            )
+        });
 
     var defaults = $.components.getDefaults("dataTable");
     var options = $.extend(true, {}, defaults, {
@@ -74,7 +94,7 @@ $(function(){
             {
                 "data": function (source, type, val) {
                     return'<a  href="javascript:void(0);">出库</a>&nbsp;'+
-                    '<a  href="javascript:void(0);">入库</a>';
+                    '<a inStockItem data-target="#inStockModal" skuId="'+source.id+'" skuColor="'+source.color+'" skuSize="'+source.itemSize+'" data-toggle="modal">入库</a>';
                 },
             },
 
@@ -136,6 +156,16 @@ $(function(){
 
             });
             $('#itemListTable_info').removeAttr('aria-live');
+
+            $('[inStockItem]').click(function() {
+                var $this = $(this);
+                var skuId = $this.attr('skuId');
+                var skuColor = $this.attr('skuColor');
+                var skuSize = $this.attr('skuSize');
+                $inStockModal.find('#inStockColor').html(skuColor);
+                $inStockModal.find('#inStockSize').html(skuSize);
+                $inStockModal.find('[name=skuId]').val(skuId);
+            });
         }
     });
 

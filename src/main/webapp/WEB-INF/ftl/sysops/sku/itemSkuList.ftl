@@ -107,6 +107,37 @@
     </div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="inStockModal" aria-hidden="false"
+     role="dialog">
+    <div class="modal-dialog">
+        <form class="modal-content" id="inStockForm" yoyo_validate="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">【${item.name}】【<span id="inStockColor"></span>】【<span id="inStockSize"></span>】入库</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" name="skuId" value=""/>
+                    <div class="col-sm-12 form-group">
+                        <label >
+                            入库数量:
+                            <p class="pull-right error-tip" yoyo_notNull="请输入入库数量"></p>
+                        </label>
+                        <input type="number" class="form-control" name="stockCount" placeholder="例如：10" value="" yoyo_notNull>
+                    </div>
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary btn-outline pull-right" type="submit">提交</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Modal -->
 <!-- End Page -->
 <#include "../../common/scripts.ftl">
 <#include "../../common/footer.ftl">

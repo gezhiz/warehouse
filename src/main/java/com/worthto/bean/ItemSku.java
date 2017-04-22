@@ -103,4 +103,5 @@ public class ItemSku {
     public void setTotalStock(Long totalStock) {
         this.totalStock = totalStock;
     }
+
 }

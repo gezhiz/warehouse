@@ -2,6 +2,7 @@ package com.worthto.dao.impl;
 
 import com.worthto.bean.ItemSku;
 import com.worthto.bean.service.ItemSkuQuery;
+import com.worthto.bean.service.ItemSkuStockUpdate;
 import com.worthto.dao.ItemSkuDao;
 import com.worthto.dao.base.impl.BaseDaoImpl;
 import org.springframework.stereotype.Repository;
@@ -57,5 +58,10 @@ public class ItemSkuDaoImpl extends BaseDaoImpl implements ItemSkuDao {
     @Override
     public ItemSku selectOneByQuery(ItemSkuQuery itemSkuQuery) {
         return executeForObject("ItemSkuMapper.selectByItemSkuQuery", itemSkuQuery,ItemSku.class);
+    }
+
+    @Override
+    public void updateStockById(ItemSkuStockUpdate itemSkuStockUpdate) {
+        execute("ItemSkuMapper.updateStockById", itemSkuStockUpdate);
     }
 }

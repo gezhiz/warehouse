@@ -3,6 +3,7 @@ package com.worthto.dao;
 import com.worthto.bean.ItemSku;
 import com.worthto.bean.ItemSku;
 import com.worthto.bean.service.ItemSkuQuery;
+import com.worthto.bean.service.ItemSkuStockUpdate;
 import com.worthto.dao.base.BaseDao;
 
 import java.util.List;
@@ -26,4 +27,6 @@ public interface ItemSkuDao extends BaseDao {
     List<ItemSku> selectByItemSkuQuery(ItemSkuQuery itemSizeQuery);
 
     ItemSku selectOneByQuery(ItemSkuQuery itemSizeQuery);
+
+    void updateStockById(ItemSkuStockUpdate itemSkuStockUpdate);
 }

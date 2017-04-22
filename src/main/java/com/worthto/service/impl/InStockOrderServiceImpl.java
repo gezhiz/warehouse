@@ -7,8 +7,10 @@ import com.mvp01.common.validator.ValidateUtils;
 import com.worthto.bean.InStockOrder;
 import com.worthto.bean.ItemSku;
 import com.worthto.bean.service.InStockOrderQuery;
+import com.worthto.bean.service.ItemSkuStockUpdate;
 import com.worthto.bean.service.SortBy;
 import com.worthto.dao.InStockOrderDao;
+import com.worthto.dao.ItemSkuDao;
 import com.worthto.dao.base.PageBean;
 import com.worthto.service.InStockOrderService;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +27,9 @@ public class InStockOrderServiceImpl implements InStockOrderService {
 
     @Autowired
     private InStockOrderDao inStockOrderDao;
+
+    @Autowired
+    private ItemSkuDao itemSkuDao;
 
     public int addInStockOrder(InStockOrder inStockOrder) {
         //仅添加
@@ -51,14 +56,22 @@ public class InStockOrderServiceImpl implements InStockOrderService {
     }
 
     @Override
-    public void inStock(ItemSku itemSku) {
+    public void inStock(ItemSku itemSku, Long stock) {
+        if (stock == null) {
+            throw new ParamException("stock不能为空");
+        }
+        if (stock <= 0) {
+            throw new ParamException("stock必须大于0");
+        }
         InStockOrder inStockOrder = new InStockOrder();
         BeanUtils.copyProperties(itemSku,inStockOrder);
         inStockOrder.setId(null);
-        inStockOrder.setInStockCount(itemSku.getStock());
+        inStockOrder.setInStockCount(stock);
         inStockOrder.setUserId(itemSku.getUserId());
         inStockOrder.setSkuId(itemSku.getId());
         ValidateUtils.validate(inStockOrder);
         addInStockOrder(inStockOrder);
+        //增加库存
+        itemSkuDao.updateStockById(new ItemSkuStockUpdate(itemSku.getId(),stock));
     }
 }

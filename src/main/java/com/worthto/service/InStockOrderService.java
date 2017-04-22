@@ -19,7 +19,8 @@ public interface InStockOrderService extends BaseService {
     /**
      * 入库操作
      * @param itemSku
+     * @param stock
      */
-    void inStock(ItemSku itemSku);
+    void inStock(ItemSku itemSku, Long stock);
 
 }

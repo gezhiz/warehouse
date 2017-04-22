@@ -61,7 +61,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
 
             if (itemSku.getStock() > 0) {
                 //生成一条入库单
-                inStockOrderService.inStock(itemSku);
+                inStockOrderService.inStock(itemSku, itemSku.getStock());
             }
             return result;
         } else {
