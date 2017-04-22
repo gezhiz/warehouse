@@ -66,6 +66,9 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.worthto.bean.ItemSku" >
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into item_sku (id, item_id, color,
     item_size, price, stock, total_stock,
     user_id)

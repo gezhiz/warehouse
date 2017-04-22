@@ -4,14 +4,17 @@ import com.mvp01.common.exception.ErrcodeException;
 import com.mvp01.common.exception.ParamException;
 import com.mvp01.common.utils.CommonUtil;
 import com.mvp01.common.validator.ValidateUtils;
+import com.worthto.bean.InStockOrder;
 import com.worthto.bean.ItemSku;
 import com.worthto.bean.service.ItemSkuQuery;
 import com.worthto.bean.service.SortBy;
 import com.worthto.dao.ItemSkuDao;
 import com.worthto.dao.base.PageBean;
+import com.worthto.service.InStockOrderService;
 import com.worthto.service.ItemSkuService;
 import com.worthto.utils.OrderUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,9 @@ public class ItemSkuServiceImpl implements ItemSkuService {
 
     @Autowired
     private ItemSkuDao itemSkuDao;
+
+    @Autowired
+    private InStockOrderService inStockOrderService;
 
 
     @Override
@@ -51,7 +57,13 @@ public class ItemSkuServiceImpl implements ItemSkuService {
                         ,"规格的sku"));
             }
             ValidateUtils.validate(itemSku);
-            return itemSkuDao.insert(itemSku);
+            int result = itemSkuDao.insert(itemSku);
+
+            if (itemSku.getStock() > 0) {
+                //生成一条入库单
+                inStockOrderService.inStock(itemSku);
+            }
+            return result;
         } else {
             // --更新--
             ItemSkuQuery query = new ItemSkuQuery();
@@ -73,6 +85,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
             return itemSkuDao.updateByPrimaryKeySelective(updateItemSku);
         }
     }
+
 
     @Override
     public PageBean itemSkuPageList(ItemSkuQuery itemSkuQuery) {
