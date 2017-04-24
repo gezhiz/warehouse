@@ -142,5 +142,8 @@
 <#include "../../common/scripts.ftl">
 <#include "../../common/footer.ftl">
 <script src="${request.contextPath}/statics/warehouse/js/itemSkuList.js"></script>
+<script>
+    var itemId = ${item.id};
+</script>
 </body>
 </html>

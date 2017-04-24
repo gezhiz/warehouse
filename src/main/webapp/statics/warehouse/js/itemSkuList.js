@@ -107,6 +107,7 @@ $(function(){
                 var filterData = $.extend({}, data, {});
                 filterData['page'] = data['start'] / data['length'] + 1;
                 filterData['pageItem'] = data['length'];
+                filterData['itemId'] = itemId;
                 return filterData;
             },
             dataFilter: function (dataString) {
