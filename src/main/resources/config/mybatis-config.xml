@@ -30,6 +30,7 @@
         <mapper resource="mapper/ItemMapper.xml"></mapper>
         <mapper resource="mapper/ItemSkuMapper.xml"></mapper>
         <mapper resource="mapper/InStockOrderMapper.xml"></mapper>
+        <mapper resource="mapper/ItemExitOrderMapper.xml"></mapper>
     </mappers>
 
 </configuration>

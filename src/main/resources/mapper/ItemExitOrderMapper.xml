@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ItemExitOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.worthto.bean.ItemExitOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="client_name" property="clientName" jdbcType="VARCHAR" />
+    <result column="client_address" property="clientAddress" jdbcType="VARCHAR" />
+    <result column="client_contact" property="clientContact" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="item_count" property="itemCount" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, client_name, client_address, client_contact, title, item_count, status, create_time,
+    user_id
+  </sql>
+  <sql id="if_list">
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="clientName != null"> AND client_name = #{clientName,jdbcType=VARCHAR} </if>
+    <if test="clientAddress != null"> AND client_address = #{clientAddress,jdbcType=VARCHAR} </if>
+    <if test="title != null"> AND title = #{title,jdbcType=VARCHAR} </if>
+    <if test="status != null"> AND status = #{status,jdbcType=VARCHAR} </if>
+    <if test="sortBy != null"> ORDER BY ${sortBy.key} ${sortBy.direction}</if>
+  </sql>
+  <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.ItemExitOrder">
+    SELECT COUNT(id)
+    FROM item_exit_order
+    WHERE 1
+    <include refid="if_list"/>
+  </select>
+
+  <select id="selectByItemExitOrderQuery" resultMap="BaseResultMap" parameterType="com.worthto.bean.service.ItemExitOrderQuery" >
+    select
+    <include refid="Base_Column_List" />
+    from item_exit_order
+    where 1
+    <include refid="if_list"/>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from item_exit_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from item_exit_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.worthto.bean.ItemExitOrder" >
+    insert into item_exit_order (id, client_name, client_address,
+    client_contact, title, item_count,
+    status, create_time, user_id
+    )
+    values (#{id,jdbcType=BIGINT}, #{clientName,jdbcType=VARCHAR}, #{clientAddress,jdbcType=VARCHAR},
+    #{clientContact,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{itemCount,jdbcType=BIGINT},
+    #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=BIGINT}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.worthto.bean.ItemExitOrder" >
+    insert into item_exit_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="clientName != null" >
+        client_name,
+      </if>
+      <if test="clientAddress != null" >
+        client_address,
+      </if>
+      <if test="clientContact != null" >
+        client_contact,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="itemCount != null" >
+        item_count,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="clientName != null" >
+        #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAddress != null" >
+        #{clientAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="clientContact != null" >
+        #{clientContact,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCount != null" >
+        #{itemCount,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worthto.bean.ItemExitOrder" >
+    update item_exit_order
+    <set >
+      <if test="clientName != null" >
+        client_name = #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAddress != null" >
+        client_address = #{clientAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="clientContact != null" >
+        client_contact = #{clientContact,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCount != null" >
+        item_count = #{itemCount,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worthto.bean.ItemExitOrder" >
+    update item_exit_order
+    set client_name = #{clientName,jdbcType=VARCHAR},
+      client_address = #{clientAddress,jdbcType=VARCHAR},
+      client_contact = #{clientContact,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      item_count = #{itemCount,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

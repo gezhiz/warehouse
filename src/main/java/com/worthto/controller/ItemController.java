@@ -58,6 +58,7 @@ public class ItemController {
     @ResponseBody
     public ResultBean addItem(HttpServletRequest request, Item item) {
         User user = LoginUtils.getLoginUser(request);
+        item.setUserId(user.getId());
         int insertNum = itemService.editItem(item);
         if (insertNum <= 0) {
             throw new ErrcodeException("添加失败,请联系系统管理员");

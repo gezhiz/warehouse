@@ -2,19 +2,19 @@
  * Created by gezz on 2017/3/18.
  */
 $(function(){
-    var $editItemModal = $('#editItemModal');
-    var $editItemForm = $('#editItemForm');
-    $editItemForm.submit(function (e) {
+    var $editItemExitOrderModal = $('#editItemExitOrderModal');
+    var $editItemExitOrderForm = $('#editItemExitOrderForm');
+    $editItemExitOrderForm.submit(function (e) {
         e.preventDefault();
-        var submitData = $editItemForm.serializeObject();
+        var submitData = $editItemExitOrderForm.serializeObject();
         $.postJSON(
-            baseUrl + '/sysops/item/edit_item',
+            baseUrl + '/sysops/itemExitOrder/edit_item_exit_order',
             submitData,
             function(retJson) {
                 if(retJson.errno == 0) {
-                    yoyoResetForm2($editItemForm);
-                    toastr.success('编辑成功', '', {positionClass: 'toast-top-center'});
-                    $editItemModal.modal('hide');
+                    yoyoResetForm2($editItemExitOrderForm);
+                    toastr.success('提交成功', '', {positionClass: 'toast-top-center'});
+                    $editItemExitOrderModal.modal('hide');
                     $dataTable.fnFilter();
                 } else {
                     toastr.error(retJson.errmsg, '', {});
@@ -48,35 +48,55 @@ $(function(){
             },
             {
                 "data": function (source, type, val) {
-                    return source.name;
+                    return source.title;
                 },
             },
             {
                 "data": function (source, type, val) {
-                    return source.totalCount;
+                    return source.clientName == undefined ? '(无)' : source.clientName;
                 },
             },
             {
                 "data": function (source, type, val) {
-                    return source.historyCount;
+                    return source.clientAddress == undefined ? '(无)' : source.clientAddress;
                 },
             },
             {
                 "data": function (source, type, val) {
-                    return '<a editItemId="'+source.id+'" href="javascript:void(0);">编辑</a>&nbsp;&nbsp;' +
-                    '<a href="'+baseUrl+'/sysops/sku/itemSkuList/'+source.id+'">出库入库</a>';
+                    return source.clientContact == undefined ? '(无)' : source.clientContact;
                 },
             },
-
+            {
+                "data": function (source, type, val) {
+                    return source.itemCount == undefined ? '(无)' : source.itemCount;
+                },
+            },
+            {
+                "data": function (source, type, val) {
+                    return source.extMap.statusEnumShow == undefined ? '(无)' : source.extMap.statusEnumShow;
+                },
+            },
+            {
+                "data": function (source, type, val) {
+                    return source.createTime == undefined ? '(无)' : new Date(source.createTime).format("yyyy-MM-dd hh:mm:ss");
+                },
+            },
+            {
+                "data": function (source, type, val) {
+                    return '<a editItemExitOrder="'+source.id+'" href="javascript:void(0);">编辑</a>'
+                        + '&nbsp;&nbsp;<a href="javascript:void(0);" target="_blank">生成出库单</a>'
+                        ;
+                },
+            }
         ],
         serverSide: true,
         ajax: {
-            url: baseUrl + '/sysops/item/item_page_list',
+            url: baseUrl + '/sysops/itemExitOrder/item_exit_order_page_list',
             data: function (data) {
                 //请求参数
                 var filterData = $.extend({}, data, {});
                 filterData['page'] = data['start'] / data['length'] + 1;
-                filterData['pageItem'] = data['length'];
+                filterData['pageExitOrder'] = data['length'];
                 return filterData;
             },
             dataFilter: function (dataString) {
@@ -102,22 +122,23 @@ $(function(){
         },
         fnDrawCallback: function () {
             //表格绘制完成后
-            $('[editItemId]').click(function() {
+            $('[editItemExitOrder]').click(function() {
                 var $this = $(this);
-                var itemId = $this.attr('editItemId');
+                var itemExitOrderId = $this.attr('editItemExitOrder');
                 $.getJSON(
-                    baseUrl + '/sysops/item/item_info',
+                    baseUrl + '/sysops/itemExitOrder/item_exit_order_info',
                     {
-                        itemId: itemId
+                        itemExitOrderId: itemExitOrderId
                     },
                     function (retJson) {
                         if (retJson.errno == 0) {
-                            var item = retJson.data;
-                            $editItemModal.modal('show');
-                            $editItemModal.find('[name=id]').val(item.id);
-                            $editItemModal.find('[name=name]').val(item.name);
-                            $editItemModal.find('[name=itemDesc]').val(item.itemDesc);
-                            $editItemModal.find('[name=itemCategoryId]').val(item.itemCategoryId).change();
+                            var itemExitOrderId = retJson.data;
+                            $editItemExitOrderModal.modal('show');
+                            $editItemExitOrderModal.find('[name=id]').val(itemExitOrderId.id);
+                            $editItemExitOrderModal.find('[name=title]').val(itemExitOrderId.title);
+                            $editItemExitOrderModal.find('[name=clientName]').val(itemExitOrderId.clientName);
+                            $editItemExitOrderModal.find('[name=clientAddress]').val(itemExitOrderId.clientAddress);
+                            $editItemExitOrderModal.find('[name=clientContact]').val(itemExitOrderId.clientContact);
                         } else {
                             toastr.error(retJson.errmsg, '');
                         }
@@ -125,13 +146,12 @@ $(function(){
                 )
 
             });
-            $('#itemListTable_info').removeAttr('aria-live');
         }
     });
 
-    var $dataTable = $('#itemListTable').dataTable(options);
+    var $dataTable = $('#itemExitOrderListTable').dataTable(options);
 
-    $('#editItem').click(function() {
-        yoyoResetForm2($editItemForm);
+    $('#editItemExitOrder').click(function() {
+        yoyoResetForm2($editItemExitOrderForm);
     });
 })

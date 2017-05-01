@@ -69,6 +69,9 @@
                     <li class="site-menu-item has-sub <#if menu=='item'>active</#if>">
                         <a href="${request.contextPath}/sysops/item/itemList">商品管理</a>
                     </li>
+                    <li class="site-menu-item has-sub <#if menu=='itemExitOrder'>active</#if>">
+                        <a href="${request.contextPath}/sysops/itemExitOrder/itemExitOrderList">出库单管理</a>
+                    </li>
                     <li class="site-menu-item has-sub <#if menu=='itemCategory'>active</#if>">
                         <a href="${request.contextPath}/sysops/category/itemCategoryList">商品类别管理</a>
                     </li>

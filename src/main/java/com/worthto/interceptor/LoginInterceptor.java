@@ -19,6 +19,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                              Object handler) throws Exception {
         // 获得请求路径的uri
         String uri = CommonUtil.getRequestUri(request);
+        if (uri.endsWith("index.js.map")) {
+            return false;
+        }
         User user = LoginUtils.getLoginUser(request);
 
         if(user == null) {

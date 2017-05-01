@@ -3,6 +3,8 @@ package com.worthto.bean;
 public class Item {
     private Long id;
 
+    private Long userId;
+
     private String name;
 
     private Long itemCategoryId;
@@ -12,6 +14,10 @@ public class Item {
     private Long historyCount;//历史总库存
 
     private String itemDesc;
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;
