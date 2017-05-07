@@ -139,11 +139,24 @@
     WHERE 1
     <include refid="if_list"/>
   </select>
-  <update id="updateStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >
+  <update id="inStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >
     update item
     set
     total_count = total_count + #{addCount,jdbcType=BIGINT},
     history_count = history_count + #{addCount,jdbcType=BIGINT}
     where id = #{itemId,jdbcType=BIGINT}
   </update>
+
+  <update id="updateStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >
+    update item
+    set
+    total_count = total_count + #{addCount,jdbcType=BIGINT}
+    where id = #{itemId,jdbcType=BIGINT}
+  </update>
+  <!--<update id="decreaseStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >-->
+    <!--update item-->
+    <!--set-->
+    <!--total_count = total_count - #{addCount,jdbcType=BIGINT}-->
+    <!--where id = #{itemId,jdbcType=BIGINT}-->
+  <!--</update>-->
 </mapper>

@@ -77,8 +77,8 @@ public class InStockOrderServiceImpl implements InStockOrderService {
         ValidateUtils.validate(inStockOrder);
         addInStockOrder(inStockOrder);
         //增加库存
-        itemSkuDao.updateStockById(new ItemSkuStockUpdate(itemSku.getId(),stock));
+        itemSkuDao.inStockById(new ItemSkuStockUpdate(itemSku.getId(),stock), null);
         //增加Item的库存
-        itemDao.updateStockById(new ItemCountUpdate(itemSku.getItemId(),stock));
+        itemDao.inStockById(new ItemCountUpdate(itemSku.getItemId(),stock), null);
     }
 }

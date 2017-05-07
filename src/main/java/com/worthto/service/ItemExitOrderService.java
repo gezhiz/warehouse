@@ -15,4 +15,8 @@ public interface ItemExitOrderService extends BaseService {
 
     ItemExitOrder findById(Long itemExitOrderId);
 
+    PageBean<ItemExitOrder> itemExitOrderNewList(Long userId);
+
+    int shipped(Long itemExitOrderId, Long userId);
+
 }

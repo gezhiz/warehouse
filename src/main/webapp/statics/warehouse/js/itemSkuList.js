@@ -5,7 +5,9 @@ $(function(){
     var $editItemSkuModal = $('#editItemSkuModal');
     var $editItemSkuForm = $('#editItemSkuForm');
     var $inStockModal = $('#inStockModal');
+    var $exitStockModal = $('#exitStockModal');
     var $inStockForm = $('#inStockForm');
+    var $exitStockForm = $('#exitStockForm');
     $editItemSkuForm.submit(function (e) {
         e.preventDefault();
         var submitData = $editItemSkuForm.serializeObject();
@@ -25,23 +27,42 @@ $(function(){
         )
     });
     $inStockForm.submit(function (e) {
-            e.preventDefault();
-            var submitData = $inStockForm.serializeObject();
-            $.postJSON(
-                baseUrl + '/sysops/inStock/in_stock',
-                submitData,
-                function(retJson) {
-                    if(retJson.errno == 0) {
-                        yoyoResetForm2($inStockForm);
-                        toastr.success('入库成功', '', {positionClass: 'toast-top-center'});
-                        $inStockModal.modal('hide');
-                        $dataTable.fnFilter();
-                    } else {
-                        toastr.error(retJson.errmsg, '', {});
-                    }
+        e.preventDefault();
+        var submitData = $inStockForm.serializeObject();
+        $.postJSON(
+            baseUrl + '/sysops/inStock/in_stock',
+            submitData,
+            function(retJson) {
+                if(retJson.errno == 0) {
+                    yoyoResetForm2($inStockForm);
+                    toastr.success('入库成功', '', {positionClass: 'toast-top-center'});
+                    $inStockModal.modal('hide');
+                    $dataTable.fnFilter();
+                    $exitStockForm.modal('display');
+                } else {
+                    toastr.error(retJson.errmsg, '', {});
                 }
-            )
-        });
+            }
+        )
+    });
+    $exitStockForm.submit(function (e) {
+        e.preventDefault();
+        var submitData = $exitStockForm.serializeObject();
+        $.postJSON(
+            baseUrl + '/sysops/skuExitOrder/edit_sku_exit_order',
+            submitData,
+            function(retJson) {
+                if(retJson.errno == 0) {
+                    yoyoResetForm2($inStockForm);
+                    toastr.success('出库成功', '', {positionClass: 'toast-top-center'});
+                    $exitStockModal.modal('hide');
+                    $dataTable.fnFilter();
+                } else {
+                    toastr.error(retJson.errmsg, '', {});
+                }
+            }
+        )
+    });
 
     var defaults = $.components.getDefaults("dataTable");
     var options = $.extend(true, {}, defaults, {
@@ -93,8 +114,8 @@ $(function(){
             },
             {
                 "data": function (source, type, val) {
-                    return'<a  href="javascript:void(0);">出库</a>&nbsp;'+
-                    '<a inStockItem data-target="#inStockModal" skuId="'+source.id+'" skuColor="'+source.color+'" skuSize="'+source.itemSize+'" data-toggle="modal">入库</a>';
+                    return'<a exitStockItem data-target="#exitStockModal" data-toggle="modal" skuId="'+source.id+'" skuColor="'+source.color+'" skuSize="'+source.itemSize+'">加入出库车</a>&nbsp;'+
+                    '<a inStockItem data-target="#inStockModal"  data-toggle="modal" skuId="'+source.id+'" skuColor="'+source.color+'" skuSize="'+source.itemSize+'" >入库</a>';
                 },
             },
 
@@ -167,6 +188,16 @@ $(function(){
                 $inStockModal.find('#inStockSize').html(skuSize);
                 $inStockModal.find('[name=skuId]').val(skuId);
             });
+            $('[exitStockItem]').click(function() {
+                var $this = $(this);
+                var skuId = $this.attr('skuId');
+                var skuColor = $this.attr('skuColor');
+                var skuSize = $this.attr('skuSize');
+                $exitStockModal.find('#inStockColor').html(skuColor);
+                $exitStockModal.find('#inStockSize').html(skuSize);
+                $exitStockModal.find('[name=skuId]').val(skuId);
+            });
+
         }
     });
 

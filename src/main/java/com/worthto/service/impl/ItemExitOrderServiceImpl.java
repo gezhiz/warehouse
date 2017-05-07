@@ -67,4 +67,39 @@ public class ItemExitOrderServiceImpl implements ItemExitOrderService {
         }
         return itemExitOrderDao.selectByPrimaryKey(itemExitOrderId);
     }
+
+    @Override
+    public PageBean<ItemExitOrder> itemExitOrderNewList(Long userId) {
+        ItemExitOrderQuery itemExitOrderQuery = new ItemExitOrderQuery();
+        itemExitOrderQuery.setUserId(userId);
+        itemExitOrderQuery.setStatus(ItemExitOrderStatusEnum.S_NEW.getValue());
+        return itemExitOrderPageList(itemExitOrderQuery);
+    }
+
+    @Override
+    public int shipped(Long itemExitOrderId, Long userId) {
+        if (itemExitOrderId == null) {
+            throw new ParamException("itemExitOrderId不能为空");
+        }
+        if (userId == null) {
+            throw new ParamException("userId不能为空");
+        }
+        ItemExitOrderQuery itemExitOrderQuery = new ItemExitOrderQuery();
+        itemExitOrderQuery.setUserId(userId);
+        itemExitOrderQuery.setId(itemExitOrderId);
+        ItemExitOrder itemExitOrder = itemExitOrderDao.selectOneByQuery(itemExitOrderQuery);
+        if (itemExitOrder == null) {
+            throw new ParamException("出库单未找到");
+        }
+        if (itemExitOrder.getStatus() != ItemExitOrderStatusEnum.S_NEW.getValue()) {
+            throw new ParamException("当前出库单状态不能出库");
+        }
+        if (itemExitOrder.getItemCount() <= 0) {
+            throw new ErrcodeException("出库单商品数量为0，不能出库");
+        }
+        ItemExitOrder itemExitOrderUpdate = new ItemExitOrder();
+        itemExitOrderUpdate.setId(itemExitOrderId);
+        itemExitOrderUpdate.setStatus(ItemExitOrderStatusEnum.S_EXITED.getValue());
+        return itemExitOrderDao.updateByPrimaryKeySelective(itemExitOrderUpdate);
+    }
 }

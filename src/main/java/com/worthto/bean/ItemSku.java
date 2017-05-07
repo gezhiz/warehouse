@@ -21,7 +21,7 @@ public class ItemSku {
     private Integer price;
 
     @NotNull(message = "初始库存不能为空")
-    private Long stock;
+    private Long stock;//库存数量
 
     @NotNull(message = "userId不能为空")
     private Long userId;
@@ -30,7 +30,7 @@ public class ItemSku {
     private Date createTime;
 
     @NotNull(message = "库存总量不能为空")
-    private Long totalStock;
+    private Long totalStock;//历史库存总量
 
     public Long getId() {
         return id;

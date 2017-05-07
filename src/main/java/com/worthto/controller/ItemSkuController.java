@@ -44,6 +44,9 @@ public class ItemSkuController {
     @Autowired
     private ItemColorService itemColorService;
 
+    @Autowired
+    private ItemExitOrderService itemExitOrderService;
+
     @RequestMapping(value = "/itemSkuList/{itemId}", method = RequestMethod.GET)
     public String skuList(HttpServletRequest request, Model model, @PathVariable Long itemId) {
         User loginUser = LoginUtils.getLoginUser(request);
@@ -62,6 +65,9 @@ public class ItemSkuController {
         PageBean<ItemColor> itemColorPageBean = itemColorService.itemColorPageList(itemColorQuery);
         model.addAttribute("itemColorPageBean",itemColorPageBean);
 
+        //新出库单列表
+        PageBean<ItemExitOrder> itemExitOrderPageBean = itemExitOrderService.itemExitOrderNewList(loginUser.getId());
+        model.addAttribute("itemExitOrderPageBean", itemExitOrderPageBean);
         return "/sysops/sku/itemSkuList";
     }
 

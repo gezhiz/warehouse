@@ -28,5 +28,7 @@ public interface ItemSkuDao extends BaseDao {
 
     ItemSku selectOneByQuery(ItemSkuQuery itemSizeQuery);
 
-    void updateStockById(ItemSkuStockUpdate itemSkuStockUpdate);
+    void inStockById(ItemSkuStockUpdate itemSkuStockUpdate, ItemSku dbItemSku);
+
+    void updateStockById(ItemSkuStockUpdate itemSkuStockUpdate, ItemSku dbItemSku);
 }

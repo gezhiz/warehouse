@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SkuExitOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.worthto.bean.SkuExitOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="item_id" property="itemId" jdbcType="BIGINT" />
+    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+    <result column="sku_count" property="skuCount" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="item_exit_order_id" property="itemExitOrderId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, item_id, sku_id, sku_count, create_time, item_exit_order_id, user_id
+  </sql>
+  <sql id="if_list">
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="itemId != null" >
+      AND item_id = #{itemId,jdbcType=BIGINT}
+    </if>
+    <if test="skuId != null" >
+      AND sku_id = #{skuId,jdbcType=BIGINT}
+    </if>
+    <if test="createTime != null" >
+      AND create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="itemExitOrderId != null" >
+      AND item_exit_order_id = #{itemExitOrderId,jdbcType=BIGINT}
+    </if>
+    <if test="userId != null" >
+      AND user_id = #{userId,jdbcType=BIGINT}
+    </if>
+    <if test="sortBy != null"> ORDER BY ${sortBy.key} ${sortBy.direction}</if>
+  </sql>
+  <select id="countByQuery" resultType="java.lang.Integer" parameterType="com.worthto.bean.SkuExitOrder">
+    SELECT COUNT(id)
+    FROM sku_exit_order
+    WHERE 1
+    <if test="id != null"> AND id = #{id,jdbcType=BIGINT} </if>
+    <if test="name != null"> AND name = #{name,jdbcType=VARCHAR} </if>
+  </select>
+
+  <select id="selectBySkuExitOrderQuery" resultMap="BaseResultMap" parameterType="com.worthto.bean.service.SkuExitOrderQuery" >
+    select
+    <include refid="Base_Column_List" />
+    from sku_exit_order
+    where 1
+    <include refid="if_list"/>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sku_exit_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sku_exit_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.worthto.bean.SkuExitOrder" >
+    insert into sku_exit_order (id, item_id, sku_id, 
+      sku_count, create_time,
+      item_exit_order_id, user_id)
+    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, 
+      #{skuCount,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
+      #{itemExitOrderId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worthto.bean.SkuExitOrder" >
+    insert into sku_exit_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="skuCount != null" >
+        sku_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="itemExitOrderId != null" >
+        item_exit_order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuCount != null" >
+        #{skuCount,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemExitOrderId != null" >
+        #{itemExitOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worthto.bean.SkuExitOrder" >
+    update sku_exit_order
+    <set >
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuCount != null" >
+        sku_count = #{skuCount,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemExitOrderId != null" >
+        item_exit_order_id = #{itemExitOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worthto.bean.SkuExitOrder" >
+    update sku_exit_order
+    set item_id = #{itemId,jdbcType=BIGINT},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      sku_count = #{skuCount,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      item_exit_order_id = #{itemExitOrderId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

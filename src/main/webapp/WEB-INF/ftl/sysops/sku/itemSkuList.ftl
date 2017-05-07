@@ -138,6 +138,59 @@
     </div>
 </div>
 <!-- End Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exitStockModal" aria-hidden="false"
+     role="dialog">
+    <div class="modal-dialog">
+        <form class="modal-content" id="exitStockForm" yoyo_validate="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">【${item.name}】【<span id="inStockColor"></span>】【<span id="inStockSize"></span>】加入出库单</h4>
+            </div>
+            <div class="modal-body">
+                <#if itemExitOrderPageBean.list?size == 0>
+                <div class="row text-center">
+                    <a href="${request.contextPath}/sysops/itemExitOrder/itemExitOrderList" class="error-tip">去创建出库单</a>
+                </div>
+                <#else>
+                    <div class="row">
+                        <input type="hidden" name="skuId" value=""/>
+                        <div class="col-sm-12 form-group">
+                            <label >
+                                出库数量:
+                                <p class="pull-right error-tip" yoyo_notNull="请输入出库数量"></p>
+                            </label>
+                            <input type="number" class="form-control" name="skuCount" placeholder="例如：10" value="" yoyo_notNull>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label >
+                                出库单:
+                                <p class="pull-right error-tip" yoyo_notNull="请选择出库单"></p>
+                            </label>
+                            <select type="text" class="form-control select"  data-plugin="select2" name="itemExitOrderId" yoyo_notNull>
+                                <#list itemExitOrderPageBean.list as itemExitOrder>
+                                    <option value="${itemExitOrder.id}">${itemExitOrder.title}</option>
+                                </#list>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary btn-outline pull-right" type="submit">提交</button>
+                        </div>
+                    </div>
+                </#if>
+
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Modal -->
 <!-- End Page -->
 <#include "../../common/scripts.ftl">
 <#include "../../common/footer.ftl">

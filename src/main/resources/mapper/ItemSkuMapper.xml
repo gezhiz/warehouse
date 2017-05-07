@@ -169,12 +169,23 @@
       user_id = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >
+  <update id="inStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >
     update item_sku
     set
     stock = stock + #{addStock,jdbcType=BIGINT},
     total_stock = total_stock + #{addStock,jdbcType=BIGINT}
     where id = #{skuId,jdbcType=BIGINT}
   </update>
-
+  <update id="updateStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >
+    update item_sku
+    set
+    stock = stock + #{addStock,jdbcType=BIGINT}
+    where id = #{skuId,jdbcType=BIGINT}
+  </update>
+  <!--<update id="decreaseStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >-->
+    <!--update item_sku-->
+    <!--set-->
+    <!--stock = stock + #{addStock,jdbcType=BIGINT}-->
+    <!--where id = #{skuId,jdbcType=BIGINT}-->
+  <!--</update>-->
 </mapper>

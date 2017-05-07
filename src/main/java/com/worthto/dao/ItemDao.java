@@ -27,5 +27,9 @@ public interface ItemDao extends BaseDao {
 
     Item selectOneByQuery(ItemQuery itemQuery);
 
-    void updateStockById(ItemCountUpdate itemCountUpdate);
+    void inStockById(ItemCountUpdate itemCountUpdate, Item dbItem);//入库
+
+    void updateStockById(ItemCountUpdate itemCountUpdate, Item dbItem);
+
+
 }

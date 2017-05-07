@@ -161,4 +161,10 @@
       user_id = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <update id="updateStockById" parameterType="com.worthto.bean.service.ItemSkuStockUpdate" >
+    update item_exit_order
+    set
+    item_count = item_count + #{addCount,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 </mapper>

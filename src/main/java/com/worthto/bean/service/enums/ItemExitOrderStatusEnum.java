@@ -5,7 +5,7 @@ package com.worthto.bean.service.enums;
  */
 public enum ItemExitOrderStatusEnum {
     S_NEW(1, "新建"),
-    S_EXITED(1, "已出库"),
+    S_EXITED(10, "已出库"),
     ;
 
     private Integer value;

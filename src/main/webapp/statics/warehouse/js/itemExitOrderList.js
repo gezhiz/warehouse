@@ -1,9 +1,11 @@
 /**
  * Created by gezz on 2017/3/18.
  */
+var $editItemExitOrderModal = $('#editItemExitOrderModal');
+var $editItemExitOrderForm = $('#editItemExitOrderForm');
+var $shippedForm = $('#shippedForm');
+var $shippedModal = $('#shippedModal');
 $(function(){
-    var $editItemExitOrderModal = $('#editItemExitOrderModal');
-    var $editItemExitOrderForm = $('#editItemExitOrderForm');
     $editItemExitOrderForm.submit(function (e) {
         e.preventDefault();
         var submitData = $editItemExitOrderForm.serializeObject();
@@ -16,6 +18,25 @@ $(function(){
                     toastr.success('提交成功', '', {positionClass: 'toast-top-center'});
                     $editItemExitOrderModal.modal('hide');
                     $dataTable.fnFilter();
+                } else {
+                    toastr.error(retJson.errmsg, '', {});
+                }
+            }
+        )
+    });
+    $shippedForm.submit(function (e) {
+        e.preventDefault();
+        var submitData = $shippedForm.serializeObject();
+        $.postJSON(
+            baseUrl + '/sysops/itemExitOrder/shipped',
+            submitData,
+            function(retJson) {
+                if(retJson.errno == 0) {
+                    yoyoResetForm2($shippedForm);
+                    toastr.success('出库发货成功', '', {positionClass: 'toast-top-center'});
+                    $editItemExitOrderModal.modal('hide');
+                    $dataTable.fnFilter();
+                    $shippedModal.modal('hide');
                 } else {
                     toastr.error(retJson.errmsg, '', {});
                 }
@@ -83,9 +104,11 @@ $(function(){
             },
             {
                 "data": function (source, type, val) {
-                    return '<a editItemExitOrder="'+source.id+'" href="javascript:void(0);">编辑</a>'
-                        + '&nbsp;&nbsp;<a href="javascript:void(0);" target="_blank">生成出库单</a>'
-                        ;
+                    var operatorContent = '<a editItemExitOrder="'+source.id+'" href="javascript:void(0);">编辑</a>';
+                    if(source.status == 1) {
+                        operatorContent += '&nbsp;&nbsp;<a href="javascript:void(0);" shippedTitle="'+source.title+'" shipped="'+source.id+'">发货</a>';
+                    }
+                    return operatorContent;
                 },
             }
         ],
@@ -145,6 +168,13 @@ $(function(){
                     }
                 )
 
+            });
+            $('[shipped]').click(function() {
+                var itemExitOrderId = $(this).attr('shipped');
+                var shippedTitle = $(this).attr('shippedTitle');
+                $shippedModal.find('[name=itemExitOrderId]').val(itemExitOrderId);
+                $shippedModal.find('#shippedTitle').html(shippedTitle);
+                $shippedModal.modal('show');
             });
         }
     });

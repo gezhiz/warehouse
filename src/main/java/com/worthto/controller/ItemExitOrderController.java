@@ -51,6 +51,23 @@ public class ItemExitOrderController {
         return ResultBean.buildOKResult();
     }
 
+    /**
+     * 操作：已发货
+     * @param request
+     * @param itemExitOrderId
+     * @return
+     */
+    @RequestMapping(value = "/shipped", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultBean shipped(HttpServletRequest request, Long itemExitOrderId) {
+        User user = LoginUtils.getLoginUser(request);
+        int resultCount = itemExitOrderService.shipped(itemExitOrderId, user.getId());
+        if (resultCount == 0) {
+            throw new ErrcodeException("出库失败，请联系系统管理员");
+        }
+        return ResultBean.buildOKResult();
+    }
+
     @RequestMapping(value = "/item_exit_order_page_list", method = RequestMethod.GET)
     @ResponseBody
     public ResultBean itemExitOrderPageList(HttpServletRequest request, ItemExitOrderQuery itemExitOrderQuery) {

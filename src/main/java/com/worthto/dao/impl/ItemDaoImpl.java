@@ -1,5 +1,7 @@
 package com.worthto.dao.impl;
 
+import com.mvp01.common.exception.ParamException;
+import com.mvp01.common.utils.CommonUtil;
 import com.worthto.bean.Item;
 import com.worthto.bean.service.ItemCountUpdate;
 import com.worthto.bean.service.ItemQuery;
@@ -61,7 +63,29 @@ public class ItemDaoImpl extends BaseDaoImpl implements ItemDao {
     }
 
     @Override
-    public void updateStockById(ItemCountUpdate itemCountUpdate) {
-        execute("ItemMapper.updateStockById", itemCountUpdate);
+    public void inStockById(ItemCountUpdate itemCountUpdate, Item dbItem) {
+        execute("ItemMapper.inStockById", itemCountUpdate);
+    }
+
+    @Override
+    public void updateStockById(ItemCountUpdate itemCountUpdate, Item dbItem) {
+        if (itemCountUpdate.getAddCount() < 0) {
+            //减库存
+            if (dbItem == null) {
+                throw new ParamException("dbItem不能为空");
+            }
+            //判定库存是否充足
+            if (dbItem.getId() == null) {
+                throw new ParamException("dbItem必须含有id");
+            }
+            if (dbItem.getTotalCount() + itemCountUpdate.getAddCount() < 0) {
+                //库存不足
+                throw new ParamException(CommonUtil.combineString("库存不足，商品【"+dbItem.getName()+"】目前库存量为"+dbItem.getTotalCount()));
+            }
+            execute("ItemMapper.updateStockById", itemCountUpdate);
+        } else {
+            //增加库存
+            execute("ItemMapper.updateStockById", itemCountUpdate);
+        }
     }
 }

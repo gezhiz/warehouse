@@ -100,6 +100,29 @@
     </div>
 </div>
 <!-- End Modal -->
+<!-- Modal -->
+<div class="modal fade" id="shippedModal" aria-hidden="false"
+     role="dialog">
+    <div class="modal-dialog">
+        <form class="modal-content" id="shippedForm" yoyo_validate="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">【<span id="shippedTitle"></span>】确认出库发货</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="itemExitOrderId" value=""/>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary btn-outline pull-right" type="submit">确认出库发货</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Modal -->
 <!-- End Page -->
 <#include "../../common/scripts.ftl">
 <#include "../../common/footer.ftl">
