@@ -12,6 +12,13 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
   </resultMap>
+  <resultMap id="DetailResultMap" type="com.worthto.bean.service.ItemExitOrderDetail">
+    <result column="category_name" property="itemCategoryName" jdbcType="VARCHAR"></result>
+    <result column="item_name" property="itemName" jdbcType="VARCHAR"></result>
+    <result column="size_name" property="itemSize" jdbcType="VARCHAR"></result>
+    <result column="color" property="color" jdbcType="VARCHAR"></result>
+    <result column="sku_count" property="skuCount" jdbcType="INTEGER"></result>
+  </resultMap>
   <sql id="Base_Column_List" >
     id, client_name, client_address, client_contact, title, item_count, status, create_time,
     user_id
@@ -167,4 +174,19 @@
     item_count = item_count + #{addCount,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectDetailByItemExitOrderQuery" resultMap="DetailResultMap" parameterType="com.worthto.bean.service.ItemExitOrderDetailQuery" >
+    SELECT
+    SEO.sku_count AS sku_count, I.name AS item_name, ITS.color AS color, ITS.item_size AS size_name, IC.name AS category_name
+    FROM item_exit_order AS IEO, sku_exit_order SEO,
+    item_sku AS ITS,item AS I,
+    item_category AS IC
+    WHERE
+    IEO.id=#{itemExitOrderDetailId,jdbcType=INTEGER}
+    AND SEO.item_exit_order_id = IEO.id
+    AND ITS.id = SEO.sku_id
+    AND I.id = ITS.item_id
+    AND IC.id = I.item_category_id
+
+  </select>
 </mapper>

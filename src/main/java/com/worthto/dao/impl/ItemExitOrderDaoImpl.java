@@ -1,6 +1,8 @@
 package com.worthto.dao.impl;
 
 import com.worthto.bean.ItemExitOrder;
+import com.worthto.bean.service.ItemExitOrderDetail;
+import com.worthto.bean.service.ItemExitOrderDetailQuery;
 import com.worthto.bean.service.ItemExitOrderQuery;
 import com.worthto.bean.service.ItemExitOrderUpdate;
 import com.worthto.dao.ItemExitOrderDao;
@@ -62,6 +64,11 @@ public class ItemExitOrderDaoImpl extends BaseDaoImpl implements ItemExitOrderDa
     @Override
     public void updateStockById(ItemExitOrderUpdate itemExitOrderUpdate) {
         execute("ItemExitOrderMapper.updateStockById", itemExitOrderUpdate);
+    }
+
+    @Override
+    public List<ItemExitOrderDetail> selectDetailByItemExitOrderQuery(ItemExitOrderDetailQuery itemExitOrderDetailQuery) {
+        return executeForObjectList("ItemExitOrderMapper.selectDetailByItemExitOrderQuery",itemExitOrderDetailQuery, 0, Integer.MAX_VALUE);
     }
 
 }

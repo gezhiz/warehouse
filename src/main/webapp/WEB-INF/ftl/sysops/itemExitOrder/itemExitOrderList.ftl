@@ -113,7 +113,36 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" name="itemExitOrderId" value=""/>
-                <div class="row">
+                <div class="row" id="itemExitOrderDetailTableDiv">
+                    <#--<table class="table table-bordered dataTable table-striped width-full vetical-middle">-->
+                        <#--<thead>-->
+                        <#--<div class="row">-->
+                            <#--<div class="col-md-4">-->
+                                <#--标题：<span shippedTitle></span>-->
+                            <#--</div>-->
+                            <#--<div class="col-md-3">-->
+                                <#--姓名：<span shippedName></span>-->
+                            <#--</div>-->
+                            <#--<div class="col-md-5">-->
+                                <#--电话：<span shippedContact></span>-->
+                            <#--</div>-->
+                            <#--<div class="col-md-12">-->
+                                <#--地址：<span shippedAddress></span>-->
+                            <#--</div>-->
+                        <#--</div>-->
+                        <#--<tr class="text-center">-->
+                            <#--<th>商品类别</th>-->
+                            <#--<th>商品名称</th>-->
+                            <#--<th>商品尺码</th>-->
+                            <#--<th>商品颜色</th>-->
+                            <#--<th>商品数量</th>-->
+                        <#--</tr>-->
+                        <#--</thead>-->
+                        <#--<tbody shippedTBody>-->
+                        <#--</tbody>-->
+                    <#--</table>-->
+                </div>
+                <div class="row" style="margin-top: 30px;">
                     <div class="col-sm-12">
                         <button class="btn btn-primary btn-outline pull-right" type="submit">确认出库发货</button>
                     </div>

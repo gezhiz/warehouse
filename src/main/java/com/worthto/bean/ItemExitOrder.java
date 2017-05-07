@@ -1,6 +1,7 @@
 package com.worthto.bean;
 
 import com.mvp01.common.bean.BaseBean;
+import com.mvp01.common.utils.gson.GsonUtil;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -100,5 +101,10 @@ public class ItemExitOrder extends BaseBean{
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return GsonUtil.toJson(this);
     }
 }

@@ -108,6 +108,7 @@ $(function(){
                     if(source.status == 1) {
                         operatorContent += '&nbsp;&nbsp;<a href="javascript:void(0);" shippedTitle="'+source.title+'" shipped="'+source.id+'">发货</a>';
                     }
+                    operatorContent += '&nbsp;&nbsp;<a href="'+baseUrl+'/sysops/itemExitOrder/itemExitOrderDetail/'+source.id+'">出库单</a>';
                     return operatorContent;
                 },
             }
@@ -171,6 +172,36 @@ $(function(){
             });
             $('[shipped]').click(function() {
                 var itemExitOrderId = $(this).attr('shipped');
+
+                $.getJSON(
+                    baseUrl + '/sysops/itemExitOrder/item_exit_order_detail',
+                    {
+                        itemExitOrderId: itemExitOrderId
+                    },
+                    function(retJson) {
+                        if(retJson.errno == 0) {
+                            var itemExitOrder = retJson.data;
+                            // var itemExitOrderDetails = itemExitOrder.extMap.itemExitOrderDetail;
+                            // $shippedModal.find('[shippedTitle]').html(itemExitOrder.title);
+                            // $shippedModal.find('[shippedName]').html(itemExitOrder.clientName);
+                            // $shippedModal.find('[shippedContact]').html(itemExitOrder.clientContact);
+                            // $shippedModal.find('[shippedAddress]').html(itemExitOrder.clientAddress);
+                            // for (var i = 0; i < itemExitOrderDetails.length; i++) {
+                            //     var itemExitOrderDetail = itemExitOrderDetails[i];
+                            //     var itemExitDetailTrContent = '<tr>';
+                            //     itemExitDetailTrContent += '<td>'+itemExitOrderDetail.itemCategoryName+'</td>';
+                            //     itemExitDetailTrContent += '<td>'+itemExitOrderDetail.itemName+'</td>';
+                            //     itemExitDetailTrContent += '<td>'+itemExitOrderDetail.itemSize+'</td>';
+                            //     itemExitDetailTrContent += '<td>'+itemExitOrderDetail.color+'</td>';
+                            //     itemExitDetailTrContent += '<td>'+itemExitOrderDetail.skuCount+'</td>';
+                            //     itemExitDetailTrContent += '</tr>';
+                            // }
+                            $shippedModal.find('#itemExitOrderDetailTableDiv').html(itemExitOrderDetailContent(itemExitOrder));
+                        } else {
+                            toastr.error(retJson.errmsg, '', {});
+                        }
+                    }
+                )
                 var shippedTitle = $(this).attr('shippedTitle');
                 $shippedModal.find('[name=itemExitOrderId]').val(itemExitOrderId);
                 $shippedModal.find('#shippedTitle').html(shippedTitle);
@@ -184,4 +215,4 @@ $(function(){
     $('#editItemExitOrder').click(function() {
         yoyoResetForm2($editItemExitOrderForm);
     });
-})
+});

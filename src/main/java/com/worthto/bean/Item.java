@@ -66,4 +66,8 @@ public class Item {
     public void setHistoryCount(Long historyCount) {
         this.historyCount = historyCount;
     }
+
+    public Long getUserId() {
+        return userId;
+    }
 }

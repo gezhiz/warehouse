@@ -4,13 +4,14 @@ import com.mvp01.common.exception.ErrcodeException;
 import com.mvp01.common.exception.ParamException;
 import com.mvp01.common.validator.ValidateUtils;
 import com.worthto.bean.ItemExitOrder;
+import com.worthto.bean.service.ItemExitOrderDetail;
+import com.worthto.bean.service.ItemExitOrderDetailQuery;
 import com.worthto.bean.service.ItemExitOrderQuery;
 import com.worthto.bean.service.SortBy;
 import com.worthto.bean.service.enums.ItemExitOrderStatusEnum;
 import com.worthto.dao.ItemExitOrderDao;
 import com.worthto.dao.base.PageBean;
 import com.worthto.service.ItemExitOrderService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,5 +102,10 @@ public class ItemExitOrderServiceImpl implements ItemExitOrderService {
         itemExitOrderUpdate.setId(itemExitOrderId);
         itemExitOrderUpdate.setStatus(ItemExitOrderStatusEnum.S_EXITED.getValue());
         return itemExitOrderDao.updateByPrimaryKeySelective(itemExitOrderUpdate);
+    }
+
+    @Override
+    public List<ItemExitOrderDetail> findByItemExitOrderQuery(ItemExitOrderDetailQuery itemExitOrderDetailQuery) {
+        return itemExitOrderDao.selectDetailByItemExitOrderQuery(itemExitOrderDetailQuery);
     }
 }

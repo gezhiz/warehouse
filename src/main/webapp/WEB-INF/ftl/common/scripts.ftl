@@ -63,6 +63,8 @@
 <script src="${request.contextPath}/statics/yoyo/js/YoYoPageUtil.js?${webVersion}"></script>
 <script src="${request.contextPath}/statics/yoyo/js/yoyoCommon.js?${webVersion}"></script>
 <script src="${request.contextPath}/statics/yoyo/js/formvalidate.js?${webVersion}"></script>
+<script src="${request.contextPath}/statics/warehouse/js/warehouse.js?${webVersion}"></script>
+
 
 <script>
     var baseUrl = '${request.contextPath}';
